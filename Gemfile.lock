@@ -104,6 +104,8 @@ GEM
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
+    paranoia (2.2.0)
+      activerecord (>= 4.0, < 5.1)
     parser (2.3.3.1)
       ast (~> 2.2)
     powerpack (0.1.1)
@@ -252,6 +254,7 @@ DEPENDENCIES
   json_expressions
   listen (~> 3.0.5)
   mysql2 (>= 0.3.18, < 0.5)
+  paranoia (~> 2.2)
   pry-byebug
   pry-doc
   pry-rails

@@ -28,6 +28,9 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# logical delete.
+gem 'paranoia', '~> 2.2'
+
 # Simple, efficient background processing.
 gem 'sidekiq'
 # Seed gem.
