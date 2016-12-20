@@ -37,6 +37,11 @@ group :development, :test do
   gem 'pry-doc'
   gem 'pry-byebug'
   gem 'pry-stack_explorer'
+
+  # Test framework.
+  gem 'rspec-rails', '~> 3.5'
+  gem 'rspec-collection_matchers'
+  gem 'factory_girl_rails'
 end
 
 group :development do
@@ -51,6 +56,15 @@ group :development do
   gem 'bullet'
   # lint gem.
   gem 'rubocop'
+end
+
+
+group :test do
+  gem 'faker'
+  gem 'database_cleaner'
+  gem 'json_expressions'
+  gem 'timecop'
+  gem 'webmock'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
