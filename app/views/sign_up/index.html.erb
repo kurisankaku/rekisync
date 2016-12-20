@@ -1,0 +1,32 @@
+<%
+  @params ||= {}
+  @errors ||= {}
+%>
+<% @errors.each do |key, value| %>
+  <div>
+    key: <%= key %>
+    value: <%= value.first[:error] %>
+  </div>
+<% end %>
+<form action="/sign_up" method="post">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <div>
+    <label for="user"><%= t("sign_up.name") %></label>
+    <input type="text" name="name" value="<%= @params[:name] %>" id="name">
+  </div>
+  <div>
+    <label for="email"><%= t("sign_up.email") %></label>
+    <input type="email" name="email" value="<%= @params[:email] %>" id="email">
+  </div>
+  <div>
+    <label for="password"><%= t("sign_up.password") %></label>
+    <input type="password" name="password" value="<%= @params[:password] %>" id="password">
+  </div>
+  <div>
+    <label for="password_confirmation"><%= t("sign_up.password_confirmation") %></label>
+    <input type="password" name="password_confirmation" value="<%= @params[:password_confirmation] %>" id="password_confirmation">
+  </div>
+  <div>
+    <input type="submit" value="<%= t("sign_up.register") %>" data-disable-with="Register">
+  </div>
+</form>
