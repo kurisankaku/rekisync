@@ -35,6 +35,8 @@ gem 'paranoia', '~> 2.2'
 gem 'sidekiq'
 # Seed gem.
 gem 'seed-fu'
+# Brings convention over configuration to your JSON generation.
+gem 'active_model_serializers', '~> 0.10.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
