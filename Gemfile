@@ -37,6 +37,8 @@ gem 'sidekiq'
 gem 'seed-fu'
 # Brings convention over configuration to your JSON generation.
 gem 'active_model_serializers', '~> 0.10.0'
+# log format.
+gem 'lograge'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
