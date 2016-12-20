@@ -39,6 +39,8 @@ gem 'seed-fu'
 gem 'active_model_serializers', '~> 0.10.0'
 # log format.
 gem 'lograge'
+# markdown.
+gem 'kramdown'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
