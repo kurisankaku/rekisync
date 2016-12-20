@@ -21,5 +21,11 @@ module Rekisync
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+
+    # Autoload paths.
+    config.autoload_paths += %W(#{config.root}/app/services)
+    config.autoload_paths += %W(#{config.root}/app/services/concerns)
+    config.autoload_paths += %W(#{config.root}/app/serializers)
+    config.autoload_paths += %W(#{config.root}/app/serializers/concerns)
   end
 end
