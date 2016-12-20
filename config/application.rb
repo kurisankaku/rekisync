@@ -31,5 +31,8 @@ module Rekisync
     # Set default time zone.
     config.time_zone = 'UTC'
     config.active_record.default_timezone = :utc
+
+    # Set active job queue adapter.
+    config.active_job.queue_adapter = :sidekiq
   end
 end
