@@ -11,15 +11,17 @@
 #
 default: &default
   adapter: mysql2
-  encoding: utf8
+  encoding: utf8mb4
+  charset: utf8mb4
+  collation: utf8mb4_general_ci
   pool: 5
   username: root
   password: root
-  host: 192.168.33.10
 
 development:
   <<: *default
   database: rekisync_development
+  host: 192.168.33.10
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -27,6 +29,7 @@ development:
 test:
   <<: *default
   database: rekisync_test
+  host: 192.168.33.10
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
