@@ -30,6 +30,8 @@ gem 'jbuilder', '~> 2.5'
 
 # Simple, efficient background processing.
 gem 'sidekiq'
+# Seed gem.
+gem 'seed-fu'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
