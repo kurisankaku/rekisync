@@ -27,5 +27,9 @@ module Rekisync
     config.autoload_paths += %W(#{config.root}/app/services/concerns)
     config.autoload_paths += %W(#{config.root}/app/serializers)
     config.autoload_paths += %W(#{config.root}/app/serializers/concerns)
+
+    # Set default time zone.
+    config.time_zone = 'UTC'
+    config.active_record.default_timezone = :utc
   end
 end
