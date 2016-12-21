@@ -1,4 +1,9 @@
 en:
+  login:
+    index:
+      account_name: "Account name or Email address"
+      login: "Login"
+      password: "Password"
   sign_up:
     create:
       message_1: "You must confirm your email address."

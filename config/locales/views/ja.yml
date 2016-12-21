@@ -1,4 +1,9 @@
 ja:
+  login:
+    index:
+      account_name: "アカウント名 または メールアドレス"
+      login: "ログイン"
+      password: "パスワード"
   sign_up:
     create:
       message_1: "メールアドレスの認証を行わなければなりません。"
