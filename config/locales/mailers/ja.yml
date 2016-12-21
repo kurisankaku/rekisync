@@ -1,0 +1,4 @@
+ja:
+  mailer:
+    confirmation_instructions:
+      subject: "メールアドレス認証"

@@ -1,0 +1,4 @@
+en:
+  mailer:
+    confirmation_instructions:
+      subject: Confirmation Email.
