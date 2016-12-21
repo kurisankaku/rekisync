@@ -1,20 +1,24 @@
 # Sign up controller.
 class SignUpController < ApplicationController
-
   # Index.
   def index
   end
 
   # Create new account.
-  #
-  # @param [ActionController::Parameters] params
   def create
     begin
-      @user = AccountService.create(params)
+      AccountService.create(params)
+      render "create"
     rescue ActiveRecord::RecordInvalid => e
       @params = params
       @errors = e.record.errors.details
+      render "index"
     end
-    render "index"
+  end
+
+  # Confirm email.
+  def confirm_email
+    AccountService.confirm_email(params[:token])
+    redirect_to root_url
   end
 end
