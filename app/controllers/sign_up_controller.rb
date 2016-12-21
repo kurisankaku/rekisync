@@ -19,7 +19,7 @@ class SignUpController < ApplicationController
 
   # Confirm email.
   def confirm_email
-    AccountService.confirm_email(params[:token])
+    session[:user_id] = AccountService.confirm_email(params[:token]).id
     redirect_to root_url
   end
 end
