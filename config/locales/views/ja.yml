@@ -1,0 +1,8 @@
+ja:
+  sign_up:
+    index:
+      email: "Email"
+      name: "アカウント名"
+      password: "パスワード"
+      password_confirmation: "パスワード(確認)"
+      register: "登録"

@@ -28,6 +28,12 @@ module Rekisync
     config.autoload_paths += %W(#{config.root}/app/serializers)
     config.autoload_paths += %W(#{config.root}/app/serializers/concerns)
 
+    # Configure locale.
+    config.i18n.available_locales = %i(ja en)
+    config.i18n.default_locale = :ja
+    # load locales subdir.
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
+
     # Set default time zone.
     config.time_zone = 'UTC'
     config.active_record.default_timezone = :utc
