@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20161220070643) do
 
-  create_table "users", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC" do |t|
+  create_table "users", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
     t.string   "name",                                null: false
     t.string   "email",                  default: "", null: false
     t.string   "password_digest",                     null: false
