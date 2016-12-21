@@ -9,17 +9,16 @@ class SignUpController < ApplicationController
   def create
     begin
       AccountService.create(params)
-      render "create"
     rescue ActiveRecord::RecordInvalid => e
       @params = params
       @errors = e.record.errors.details
-      render "index"
+      render :index
     end
   end
 
   # Confirm email.
   def confirm_email
-    session[:user_id] = AccountService.confirm_email(params[:token]).id
-    redirect_to root_url
+    self.current_user = AccountService.confirm_email(params[:token])
+    redirect_to root_path
   end
 end
