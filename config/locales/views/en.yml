@@ -1,5 +1,8 @@
 en:
   sign_up:
+    create:
+      message_1: "You must confirm your email address."
+      message_2: "Please click the link of the sent email."
     index:
       email: "Email"
       name: "Name"

@@ -1,5 +1,8 @@
 ja:
   sign_up:
+    create:
+      message_1: "メールアドレスの認証を行わなければなりません。"
+      message_2: "送信されたメールのリンクをクリックし、メールアドレスを認証してください。"
     index:
       email: "Email"
       name: "アカウント名"
