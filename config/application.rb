@@ -27,6 +27,7 @@ module Rekisync
     config.autoload_paths += %W(#{config.root}/app/services/concerns)
     config.autoload_paths += %W(#{config.root}/app/serializers)
     config.autoload_paths += %W(#{config.root}/app/serializers/concerns)
+    config.autoload_paths += %W(#{config.root}/lib)
 
     # Configure locale.
     config.i18n.available_locales = %i(ja en)
