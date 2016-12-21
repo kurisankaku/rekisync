@@ -1,5 +1,6 @@
 # Sign up controller.
 class SignUpController < ApplicationController
+  skip_before_action :authenticate_user!
   # Index.
   def index
   end
