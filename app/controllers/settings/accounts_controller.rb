@@ -7,28 +7,25 @@ module Settings
 
     # Update account password.
     def update
-      params[:id] = self.current_user.id
-      begin
-        AccountService.update_password(params)
+      @error = execute_action do
+        AccountService.update_password(params.merge(id: self.current_user.id))
+      end
+      if @error.present?
+        render :show
+      else
         redirect_to settings_account_path
-      rescue ActiveRecord::RecordInvalid => e
-        @errors = { record: e.record.errors.details, bad: {} }
-        render :show
-      rescue BadRequestError => e
-        @errors = { record: {}, bad: e }
-        render :show
       end
     end
 
     # Delete account.
     def destroy
-      params[:id] = self.current_user.id
-      begin
-        AccountService.delete(params)
-        redirect_to login_index_path
-      rescue ActiveRecord::RecordInvalid => e
-        @errors = { record: e.record.errors.details }
+      @error = execute_action do
+        AccountService.delete(params.merge(id: self.current_user.id))
+      end
+      if @error.present?
         render :show
+      else
+        redirect_to login_index_path
       end
     end
   end

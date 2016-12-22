@@ -1,0 +1,7 @@
+<% @error ||= {} %>
+<% @error.each do |key, value| %>
+  <div>
+    key: <%= key %>
+    value: <%= value.first[:error] %>
+  </div>
+<% end %>

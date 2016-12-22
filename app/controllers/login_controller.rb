@@ -7,20 +7,14 @@ class LoginController < ApplicationController
 
   # Login.
   def create
-    @errors = { record: {}, bad: {} }
-    begin
+    @error = execute_action do
       self.current_user = AccountService.authenticate(params)
+    end
+    if @error.present?
+      render :index
+    else
+      @params = params.slice(:account_name)
       redirect_to root_path
-    rescue ActiveRecord::RecordInvalid => e
-      @params = params.slice(:account_name)
-      @errors[:record] = e.record.errors.details
-
-      render :index
-    rescue BadRequestError => e
-      @params = params.slice(:account_name)
-      @errors[:bad] = e
-
-      render :index
     end
   end
 

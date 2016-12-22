@@ -1,19 +1,4 @@
-<%
-  @params ||= {}
-  @errors ||= { record: {}, bad: {} }
-%>
-<% @errors[:record].each do |key, value| %>
-  <div>
-    key: <%= key %>
-    value: <%= value.first[:error] %>
-  </div>
-<% end %>
-<% if @errors[:bad].present? %>
-  <div>
-    code: <%= @errors[:bad].code %>
-    field: <%= @errors[:bad].field %>
-  </div>
-<% end %>
+<%= render :partial => "shared/error", :locals => { error: @error } %>
 <h2>Email Changes</h2>
 
 <form action="<%= settings_emails_path %>" method="post">

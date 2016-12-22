@@ -12,6 +12,12 @@ class BaseError < StandardError
 
   # Fetch status code.(ex. 400)
   def status_code
-    fail "Override #status_code"
+    raise "Override #status_code"
+  end
+
+  # Generate error hash of views format.
+  def format_views_error
+    field = @field || @code
+    { field => [{ error: @code }] }
   end
 end

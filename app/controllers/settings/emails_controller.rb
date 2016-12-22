@@ -7,17 +7,11 @@ module Settings
 
     # Update Email.
     def update
-      begin
+      @error = execute_action do
         AccountService.update_email(params.merge(id: self.current_user.id))
-      rescue ActiveRecord::RecordInvalid => e
-        @params = params
-        @errors[:record] = e.record.errors.details
+      end
 
-        render :show
-      rescue BadRequestError => e
-        @params = params
-        @errors[:bad] = e
-
+      if @error.present?
         render :show
       end
     end

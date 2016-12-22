@@ -7,11 +7,11 @@ class SignUpController < ApplicationController
 
   # Create new account.
   def create
-    begin
+    @error = execute_action do
       AccountService.create(params)
-    rescue ActiveRecord::RecordInvalid => e
+    end
+    if @error.present?
       @params = params
-      @errors = e.record.errors.details
       render :index
     end
   end

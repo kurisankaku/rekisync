@@ -1,30 +1,21 @@
-<%
-  @params ||= {}
-  @errors ||= {}
-%>
-<% @errors.each do |key, value| %>
-  <div>
-    key: <%= key %>
-    value: <%= value.first[:error] %>
-  </div>
-<% end %>
+<%= render :partial => "shared/error", :locals => { error: @error } %>
 <form action="/sign_up" method="post">
   <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
   <div>
     <label for="user"><%= t(".name") %></label>
-    <input type="text" name="name" value="<%= @params[:name] %>" id="name">
+    <input type="text" name="name" value="<%= @params.try(:[], :name) %>" id="name">
   </div>
   <div>
     <label for="email"><%= t(".email") %></label>
-    <input type="email" name="email" value="<%= @params[:email] %>" id="email">
+    <input type="email" name="email" value="<%= @params.try(:[], :email) %>" id="email">
   </div>
   <div>
     <label for="password"><%= t(".password") %></label>
-    <input type="password" name="password" value="<%= @params[:password] %>" id="password">
+    <input type="password" name="password" value="<%= @params.try(:[], :password) %>" id="password">
   </div>
   <div>
     <label for="password_confirmation"><%= t(".password_confirmation") %></label>
-    <input type="password" name="password_confirmation" value="<%= @params[:password_confirmation] %>" id="password_confirmation">
+    <input type="password" name="password_confirmation" value="<%= @params.try(:[], :password_confirmation) %>" id="password_confirmation">
   </div>
   <div>
     <input type="submit" value="<%= t(".register") %>" data-disable-with="Register">

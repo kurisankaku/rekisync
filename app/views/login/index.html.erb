@@ -1,29 +1,14 @@
-<%
-  @params ||= {}
-  @errors ||= { record: {}, bad: {} }
-%>
-<% @errors[:record].each do |key, value| %>
-  <div>
-    key: <%= key %>
-    value: <%= value.first[:error] %>
-  </div>
-<% end %>
-<% if @errors[:bad].present? %>
-  <div>
-    code: <%= @errors[:bad].code %>
-    field: <%= @errors[:bad].field %>
-  </div>
-<% end %>
+<%= render :partial => "shared/error", :locals => { error: @error } %>
 Login Page.
 <form action="/login" method="post">
   <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
   <div>
     <label for="account_name"><%= t(".account_name") %></label>
-    <input type="text" name="account_name" value="<%= @params[:account_name] %>" id="account_name">
+    <input type="text" name="account_name" value="<%= @params.try(:[], :account_name) %>" id="account_name">
   </div>
   <div>
     <label for="password"><%= t(".password") %></label>
-    <input type="password" name="password" value="<%= @params[:password] %>" id="password">
+    <input type="password" name="password" value="<%= @params.try(:[], :password) %>" id="password">
   </div>
   <div>
     <input type="submit" value="<%= t(".login") %>" data-disable-with="Login...">
