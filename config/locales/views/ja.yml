@@ -14,3 +14,12 @@ ja:
       password: "パスワード"
       password_confirmation: "パスワード(確認)"
       register: "登録"
+  settings:
+    accounts:
+      show:
+        delete_account: "アカウントを削除"
+        new_password: "新しいパスワード"
+        new_password_confirmation: "新しいパスワード(確認)"
+        old_password: "現在のパスワード"
+        password: "パスワード"
+        update_password: "パスワードを更新"
