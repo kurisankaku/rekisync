@@ -22,12 +22,11 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, if: "password.present?"
   validates :name,
             presence: true,
-            uniqueness: true,
             length: { maximum: 128 }
-  validates :email,
-            presence: true,
-            uniqueness: true
+  validates_uniqueness_of :name, conditions: -> { with_deleted }
+  validates :email, presence: true
   validates :email, format: { with: EMAIL_FORMAT }, if: 'email.present?'
+  validates_uniqueness_of :email, conditions: -> { with_deleted }
 
   # token life time.
   TOKEN_LIFE_TIME = 1.hour
