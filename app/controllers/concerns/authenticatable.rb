@@ -14,7 +14,7 @@ module Authenticatable
 
   # Set current_user.
   def current_user=(user)
-    session[:user_id] = user.id
+    session[:user_id] = user.id if user.present?
     @current_user_no_direct_call = user
   end
 

@@ -23,4 +23,12 @@ class LoginController < ApplicationController
       render :index
     end
   end
+
+  # Logout.
+  def destroy
+    self.current_user = nil
+    reset_session
+
+    redirect_to login_index_path
+  end
 end
