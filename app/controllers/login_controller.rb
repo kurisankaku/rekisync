@@ -11,9 +11,9 @@ class LoginController < ApplicationController
       self.current_user = AccountService.authenticate(params)
     end
     if @error.present?
+      @params = params.slice(:account_name)
       render :index
     else
-      @params = params.slice(:account_name)
       redirect_to root_path
     end
   end
