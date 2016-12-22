@@ -1,0 +1,54 @@
+<%
+  @params ||= {}
+  @errors ||= { record: {}, bad: {} }
+%>
+<% @errors[:record].each do |key, value| %>
+  <div>
+    key: <%= key %>
+    value: <%= value.first[:error] %>
+  </div>
+<% end %>
+<% if @errors[:bad].present? %>
+  <div>
+    code: <%= @errors[:bad].code %>
+    field: <%= @errors[:bad].field %>
+  </div>
+<% end %>
+<h2>Account Management</h2>
+<hr>
+
+<h3>Update Password</h3>
+<form action="<%= settings_account_path %>" method="post">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <input type="hidden" name="_method" value="put">
+  <div>
+    <label for="old_password"><%= t(".old_password") %></label>
+    <input type="text" name="old_password" id="old_password">
+  </div>
+  <div>
+    <label for="password"><%= t(".password") %></label>
+    <input type="password" name="password" id="password">
+  </div>
+  <div>
+    <label for="password_confirmation"><%= t(".password_confirmation") %></label>
+    <input type="password" name="password_confirmation" id="password_confirmation">
+  </div>
+  <div>
+    <input type="submit" value="<%= t(".update_password") %>">
+  </div>
+</form>
+
+<hr>
+
+<h3>DELETE ACCOUNT</h3>
+<form action="<%= settings_account_path %>" method="post">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <input type="hidden" name="_method" value="delete">
+  <div>
+    <label for="password"><%= t(".password") %></label>
+    <input type="password" name="password" id="password">
+  </div>
+  <div>
+    <input type="submit" value="<%= t(".delete_account") %>">
+  </div>
+</form>
