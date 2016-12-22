@@ -1,0 +1,29 @@
+<%
+  @params ||= {}
+  @errors ||= { record: {}, bad: {} }
+%>
+<% @errors[:record].each do |key, value| %>
+  <div>
+    key: <%= key %>
+    value: <%= value.first[:error] %>
+  </div>
+<% end %>
+<% if @errors[:bad].present? %>
+  <div>
+    code: <%= @errors[:bad].code %>
+    field: <%= @errors[:bad].field %>
+  </div>
+<% end %>
+<h2>Email Changes</h2>
+
+<form action="<%= settings_emails_path %>" method="post">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <input type="hidden" name="_method" value="put">
+  <div>
+    <label for="email"><%= t(".email") %></label>
+    <input type="email" name="email" value="<%= @params[:email] %>">
+  </div>
+  <div>
+    <input type="submit" value="<%= t(".update_email") %>">
+  </div>
+</form>

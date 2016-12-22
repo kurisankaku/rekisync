@@ -23,4 +23,10 @@ en:
         old_password: "Now password"
         password: "Password"
         update_password: "Update password"
-
+    emails:
+      show:
+        email: "Email Address"
+        update_email: "Update email address"
+      update:
+        message_1: "You must confirm your email address."
+        message_2: "Please click the link of the sent email."

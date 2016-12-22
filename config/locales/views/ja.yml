@@ -23,3 +23,10 @@ ja:
         old_password: "現在のパスワード"
         password: "パスワード"
         update_password: "パスワードを更新"
+    emails:
+      show:
+        email: "メールアドレス"
+        update_email: "メールアドレスを更新"
+      update:
+        message_1: "メールアドレスの認証を行わなければなりません。"
+        message_2: "送信されたメールのリンクをクリックし、メールアドレスを認証してください。"
