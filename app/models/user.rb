@@ -64,6 +64,7 @@ class User < ApplicationRecord
       self.errors.add(:confirmation_token, :expired)
       fail ActiveRecord::RecordInvalid.new(self)
     end
+    @skip_confirmation_notification = true
 
     if unconfirmed_email.present?
       self.email = self.unconfirmed_email

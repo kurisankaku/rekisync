@@ -341,6 +341,7 @@ describe User do
           expect(user.unconfirmed_email).to be_nil
           expect(user.confirmed_at).to eq Time.zone.now
           expect(user.confirmation_token).to be_nil
+          expect(user.instance_variable_get(:@skip_confirmation_notification)).to be true
         end
       end
       context "unconfirmed_email not presented" do
@@ -354,6 +355,7 @@ describe User do
           expect(user.unconfirmed_email).to be_nil
           expect(user.confirmed_at).to eq Time.zone.now
           expect(user.confirmation_token).to be_nil
+          expect(user.instance_variable_get(:@skip_confirmation_notification)).to be true
         end
       end
     end
