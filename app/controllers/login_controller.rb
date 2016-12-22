@@ -12,12 +12,12 @@ class LoginController < ApplicationController
       self.current_user = AccountService.authenticate(params)
       redirect_to root_path
     rescue ActiveRecord::RecordInvalid => e
-      @params = params
+      @params = params.slice(:account_name)
       @errors[:record] = e.record.errors.details
 
       render :index
     rescue BadRequestError => e
-      @params = params
+      @params = params.slice(:account_name)
       @errors[:bad] = e
 
       render :index
