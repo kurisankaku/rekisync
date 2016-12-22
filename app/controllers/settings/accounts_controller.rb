@@ -11,7 +11,7 @@ module Settings
         AccountService.update_password(params.merge(id: self.current_user.id))
       end
       if @error.present?
-        render :show
+        render :show, status: 400
       else
         redirect_to settings_account_path
       end
@@ -23,7 +23,7 @@ module Settings
         AccountService.delete(params.merge(id: self.current_user.id))
       end
       if @error.present?
-        render :show
+        render :show, status: 400
       else
         redirect_to login_index_path
       end

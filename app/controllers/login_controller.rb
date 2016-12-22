@@ -12,7 +12,7 @@ class LoginController < ApplicationController
     end
     if @error.present?
       @params = params.slice(:account_name)
-      render :index
+      render :index, status: 400
     else
       redirect_to root_path
     end

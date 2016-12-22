@@ -12,7 +12,7 @@ class SignUpController < ApplicationController
     end
     if @error.present?
       @params = params
-      render :index
+      render :index, status: 400
     end
   end
 

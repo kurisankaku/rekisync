@@ -12,7 +12,7 @@ module Settings
       end
 
       if @error.present?
-        render :show
+        render :show, status: 400
       end
     end
   end
