@@ -44,6 +44,12 @@ describe User do
         expect(model).to be_valid
       end
 
+      it "is valid when it is null and third_party_access_tokens are presented" do
+        model.password = nil
+        model.third_party_access_tokens << build(:third_party_access_token)
+        expect(model).to be_valid
+      end
+
       it "is invalid when its length 7" do
         model.password = "123456a"
         expect(model).to have(1).errors_on(:password)

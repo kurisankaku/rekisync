@@ -2,7 +2,7 @@ require 'securerandom'
 
 # User model.
 class User < ApplicationRecord
-  has_secure_password
+  has_secure_password validations: false
   acts_as_paranoid
 
   before_create :generate_confirmation_token_and_confirmation_sent_at, if: :send_confirmation_notification?
@@ -11,10 +11,13 @@ class User < ApplicationRecord
   after_commit :send_reconfirmation_instructions, on: :update, if: :reconfirmation_required?
   after_commit :send_reset_password_instructions, on: :update, if: :reset_password_instructions_require?
 
+  has_many :third_party_access_tokens, dependent: :destroy
+
   PASSWORD_FORMAT = /\A(?=.*\d)(?=.*[a-zA-Z])/x
   EMAIL_FORMAT = /\A[a-zA-Z0-9_.+-]+[@][a-zA-Z0-9.-]+\z/
+
+  validates :password, presence: true, if: "third_party_access_tokens.blank?"
   validates :password,
-            presence: true,
             length: { minimum: 8 },
             format: { with: PASSWORD_FORMAT },
             confirmation: true,
@@ -27,6 +30,7 @@ class User < ApplicationRecord
   validates :email, presence: true
   validates :email, format: { with: EMAIL_FORMAT }, if: 'email.present?'
   validates_uniqueness_of :email, conditions: -> { with_deleted }
+  validate :password_digest_presence
 
   # token life time.
   TOKEN_LIFE_TIME = 1.hour
@@ -183,5 +187,9 @@ class User < ApplicationRecord
     @reset_password_instructions_require = false
     mailer = ::ConfirmationMailer.reset_password_instructions(self, self.reset_password_token)
     mailer.deliver_later
+  end
+
+  def password_digest_presence
+    self.errors.add(:password, :blank) if self.password_digest.blank? && third_party_access_tokens.blank?
   end
 end
