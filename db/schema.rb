@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161226055149) do
+ActiveRecord::Schema.define(version: 20161226055958) do
 
   create_table "third_party_access_tokens", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
     t.bigint   "user_id",                  null: false
     t.string   "uid",                      null: false
-    t.string   "type",          limit: 16, null: false
+    t.string   "provider",      limit: 32, null: false
     t.string   "token",                    null: false
     t.string   "refresh_token"
     t.integer  "expires_in"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20161226055149) do
   create_table "users", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
     t.string   "name",                                null: false
     t.string   "email",                  default: "", null: false
-    t.string   "password_digest",                     null: false
+    t.string   "password_digest"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "current_sign_in_at"
