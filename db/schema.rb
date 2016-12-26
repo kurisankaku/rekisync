@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161220070643) do
+ActiveRecord::Schema.define(version: 20161226055149) do
+
+  create_table "third_party_access_tokens", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
+    t.bigint   "user_id",                  null: false
+    t.string   "uid",                      null: false
+    t.string   "type",          limit: 16, null: false
+    t.string   "token",                    null: false
+    t.string   "refresh_token"
+    t.integer  "expires_in"
+    t.datetime "revoked_at"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["user_id"], name: "index_third_party_access_tokens_on_user_id", using: :btree
+  end
 
   create_table "users", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
     t.string   "name",                                null: false
@@ -37,4 +50,5 @@ ActiveRecord::Schema.define(version: 20161220070643) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "third_party_access_tokens", "users"
 end
