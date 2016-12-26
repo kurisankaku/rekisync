@@ -15,6 +15,7 @@ class User < ApplicationRecord
 
   PASSWORD_FORMAT = /\A(?=.*\d)(?=.*[a-zA-Z])/x
   EMAIL_FORMAT = /\A[a-zA-Z0-9_.+-]+[@][a-zA-Z0-9.-]+\z/
+  NAME_FORMAT = /\A[a-z0-9_+-]*\z/
 
   validates :password, presence: true, if: "third_party_access_tokens.blank?"
   validates :password,
@@ -25,6 +26,7 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, if: "password.present?"
   validates :name,
             presence: true,
+            format: { with: NAME_FORMAT },
             length: { maximum: 128 }
   validates_uniqueness_of :name, conditions: -> { with_deleted }
   validates :email, presence: true

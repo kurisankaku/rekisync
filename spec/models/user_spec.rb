@@ -4,7 +4,7 @@ describe User do
   describe "#validate" do
     let(:model) { build :user }
     context "name" do
-      let!(:user) { create :user, name: "Name" }
+      let!(:user) { create :user, name: "name" }
 
       it "is valid when its length 1" do
         model.name = "a"
@@ -32,7 +32,17 @@ describe User do
       end
 
       it "is invalid when it not unique" do
-        model.name = "Name"
+        model.name = "name"
+        expect(model).to have(1).errors_on(:name)
+      end
+
+      it "is valid when its format is correct" do
+        model.name = "az09_-+"
+        expect(model).to be_valid
+      end
+
+      it "is invalid when its format invalid" do
+        model.name = "name."
         expect(model).to have(1).errors_on(:name)
       end
     end
