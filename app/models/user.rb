@@ -17,7 +17,6 @@ class User < ApplicationRecord
   EMAIL_FORMAT = /\A[a-zA-Z0-9_.+-]+[@][a-zA-Z0-9.-]+\z/
   NAME_FORMAT = /\A[a-z0-9_+-]*\z/
 
-  validates :password, presence: true, if: "third_party_access_tokens.blank?"
   validates :password,
             length: { minimum: 8 },
             format: { with: PASSWORD_FORMAT },
@@ -192,6 +191,6 @@ class User < ApplicationRecord
   end
 
   def password_digest_presence
-    self.errors.add(:password, :blank) if self.password_digest.blank? && third_party_access_tokens.blank?
+    self.errors.add(:password, :blank) if self.password_digest.blank? && self.third_party_access_tokens.blank?
   end
 end
