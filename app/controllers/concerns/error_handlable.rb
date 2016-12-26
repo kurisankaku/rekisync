@@ -55,7 +55,7 @@ module ErrorHandlable
   # @param [Integer] status
   # @return [Hash] log.
   def build_log(e, status)
-    log = { log_type: "server", status: status }
+    log = { log_type: "server", status: status, user_agent: request.try(:headers).try(:[],:HTTP_USER_AGENT), user_id: current_user.try(:id) }
     log.merge!(message: e.message, backtrace: e.backtrace.join("\n")) if e.present?
     log
   end
