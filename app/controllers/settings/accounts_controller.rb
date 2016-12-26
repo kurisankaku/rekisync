@@ -8,7 +8,7 @@ module Settings
     # Update account password.
     def update
       @error = execute_action do
-        AccountService.update_password(params.merge(id: self.current_user.id))
+        AccountService.new.update_password(params.merge(id: self.current_user.id))
       end
       if @error.present?
         render :show, status: 400
@@ -20,7 +20,7 @@ module Settings
     # Delete account.
     def destroy
       @error = execute_action do
-        AccountService.delete(params.merge(id: self.current_user.id))
+        AccountService.new.delete(params.merge(id: self.current_user.id))
       end
       if @error.present?
         render :show, status: 400

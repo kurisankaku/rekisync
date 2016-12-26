@@ -8,7 +8,7 @@ module Settings
     # Update Email.
     def update
       @error = execute_action do
-        AccountService.update_email(params.merge(id: self.current_user.id))
+        AccountService.new.update_email(params.merge(id: self.current_user.id))
       end
 
       if @error.present?

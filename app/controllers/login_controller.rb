@@ -8,7 +8,7 @@ class LoginController < ApplicationController
   # Login.
   def create
     @error = execute_action do
-      self.current_user = AccountService.authenticate(params)
+      self.current_user = AccountService.new.authenticate(params)
     end
     if @error.present?
       @params = params.slice(:account_name)

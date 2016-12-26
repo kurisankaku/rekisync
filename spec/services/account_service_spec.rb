@@ -4,8 +4,9 @@ describe AccountService do
   include ErrorExamples
 
   describe "#create" do
-    subject { AccountService.create(params) }
+    subject { AccountService.new.create(params, option) }
     let!(:params) { ActionController::Parameters.new(attrs) }
+    let!(:option) { {} }
     let!(:email) { "test@test.test.com" }
     let!(:attrs) do
       { name: "test",
@@ -44,7 +45,7 @@ describe AccountService do
     end
     context "skip confirmation" do
       before do
-        params[:skip_confirmation] = true
+        option[:skip_confirmation] = true
       end
       it "creates new user" do
         expect { subject }.to change(User, :count).by(1)
@@ -65,7 +66,7 @@ describe AccountService do
   end
 
   describe "#authenticate" do
-    subject { AccountService.authenticate(params) }
+    subject { AccountService.new.authenticate(params) }
     let!(:params) { ActionController::Parameters.new(attrs) }
     let!(:user) { create :user,
                   skip_confirm: true,
@@ -129,7 +130,7 @@ describe AccountService do
   end
 
   describe "#confirm_email" do
-    subject { AccountService.confirm_email(token) }
+    subject { AccountService.new.confirm_email(token) }
     let!(:user) { create :user, skip_confirm: false }
     let!(:token) { user.confirmation_token }
 
@@ -154,7 +155,7 @@ describe AccountService do
   end
 
   describe "#update_email" do
-    subject { AccountService.update_email(params) }
+    subject { AccountService.new.update_email(params) }
     let!(:params) { ActionController::Parameters.new(attrs) }
     let!(:user) { create :user,
                   skip_confirm: true,
@@ -188,7 +189,7 @@ describe AccountService do
   end
 
   describe "#update_name" do
-    subject { AccountService.update_name(params) }
+    subject { AccountService.new.update_name(params) }
     let!(:params) { ActionController::Parameters.new(attrs) }
     let!(:user) { create :user,
                   skip_confirm: true,
@@ -225,7 +226,7 @@ describe AccountService do
   end
 
   describe "#update_password" do
-    subject { AccountService.update_password(params) }
+    subject { AccountService.new.update_password(params) }
     let!(:params) { ActionController::Parameters.new(attrs) }
     let!(:user) { create :user,
                   skip_confirm: true,
@@ -265,7 +266,7 @@ describe AccountService do
   end
 
   describe "#reset_password" do
-    subject { AccountService.reset_password(params) }
+    subject { AccountService.new.reset_password(params) }
     let!(:params) { ActionController::Parameters.new(attrs) }
     let!(:user) { create :user,
                   skip_confirm: true,
@@ -305,7 +306,7 @@ describe AccountService do
   end
 
   describe "#issue_reset_password_token" do
-    subject { AccountService.issue_reset_password_token(params) }
+    subject { AccountService.new.issue_reset_password_token(params) }
     let!(:params) { ActionController::Parameters.new(attrs) }
     let!(:user) { create :user,
                   skip_confirm: true,
@@ -338,7 +339,7 @@ describe AccountService do
   end
 
   describe "#delete" do
-    subject { AccountService.delete(params) }
+    subject { AccountService.new.delete(params) }
     let!(:params) { ActionController::Parameters.new(attrs) }
     let!(:user) { create :user,
                   skip_confirm: true,
