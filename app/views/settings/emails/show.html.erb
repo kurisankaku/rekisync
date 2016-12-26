@@ -6,7 +6,7 @@
   <input type="hidden" name="_method" value="put">
   <div>
     <label for="email"><%= t(".email") %></label>
-    <input type="email" name="email" value="<%= @params[:email] %>">
+    <input type="email" name="email" value="<%= @params.try(:[], :email) %>">
   </div>
   <div>
     <input type="submit" value="<%= t(".update_email") %>">
