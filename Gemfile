@@ -40,6 +40,7 @@ gem 'seed-fu'
 gem 'active_model_serializers', '~> 0.10.0'
 # log format.
 gem 'lograge'
+gem 'lines'
 # markdown.
 gem 'kramdown'
 
