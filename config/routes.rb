@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get "/auth/twitter/callback", to: "thirdparty/oauth#callback_twitter"
+
   require 'sidekiq/web'
   require 'admin_constraint'
   mount Sidekiq::Web => '/sidekiq', :constraints => AdminConstraint.new
