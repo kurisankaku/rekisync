@@ -6,13 +6,18 @@ module AccountStrategies
     # @param [Hash] option
     # @return [User] created account.
     def create(params, option = {})
-      user = User.where(email: params[:email], confirmed_at: nil).first
-      if user.nil?
+      token = find_access_token(option[:auth_hash])
+      if token.nil?
         user = User.new(sign_up_params(params))
-      end
+        user.third_party_access_tokens << ThirdPartyAccessToken.new(third_party_access_token_params(option[:auth_hash]))
 
-      user.skip_confirmation! if option[:skip_confirmation]
-      user.tap(&:save!)
+        user.skip_confirmation! if option[:skip_confirmation]
+        user.tap(&:save!)
+      else
+        token.update!(third_party_access_token_params(option[:auth_hash]))
+        token.user.update!(sign_up_params(params))
+        token.user
+      end
     end
 
     # Authenticate account.
@@ -20,31 +25,47 @@ module AccountStrategies
     # @param [ActionController::Parameters] params parameters.
     # @return [User] user.
     def authenticate(params)
+      fail "Do not call this function. Authentication is delegated to third party's system."
     end
 
     # Find account by third party params.
     #
-    # @param [ActionController::Parameters] params parameters.
+    # @param [Hash] params parameters.
     # @return [User] account.
     def find(params)
-      token = ThirdPartyAccessToken.where(provider: params[:provider], uid: params[:uid]).first
-      token.try(:user)
+      find_access_token(params).try(:user)
     end
 
     private
 
-    # Build third party access token object by params.
+    # Find access token by third party params.
     #
-    # @param [Hash] params
-    # @return [ThirdPartyAccessToken] object.
-    def build_third_party_access_token(params)
-      ThirdPartyAccessToken.new({
+    # @param [Hash] params parameters.
+    # @return [ThirdPartyAccessToken] access token.
+    def find_access_token(params)
+      ThirdPartyAccessToken.where(provider: params[:provider], uid: params[:uid]).first
+    end
+
+    # Return third party access token params.
+    #
+    # @param [Hash] params reqeust.env["omniauth.auth"] hash.
+    # @return [Hash] ThirdPartyAccessToken model attributes.
+    def third_party_access_token_params(params)
+      if params[:provider] == "twitter"
+        {
           uid: params[:uid],
           provider: params[:provider],
-          token: params[:token],
-          refresh_token: params[:refresh_token]
-          expires_in: params[:expires_in]
-        })
+          token: params[:credentials].try(:[], :token)
+        }
+      end
+    end
+
+    # Sanitize params for sign_up action.
+    #
+    # @param [ActionController::Parameters] params parameters.
+    # @return [ActionController::Parameters] params
+    def sign_up_params(params)
+      params.permit(:name, :email)
     end
   end
 end

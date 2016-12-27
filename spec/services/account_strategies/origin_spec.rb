@@ -70,12 +70,18 @@ describe AccountStrategies::Origin do
           it "updates exists user" do
             expect { subject }.to change(User, :count).by(0)
           end
+          it "updates attributes" do
+            expect(subject.unconfirmed_email).to eq email
+          end
         end
 
         context "when user found by email" do
           let!(:user) { create :user, email: email, skip_confirm: false }
           it "updates exists user" do
             expect { subject }.to change(User, :count).by(0)
+          end
+          it "updates attributes" do
+            expect(subject.name).to eq name
           end
         end
 
