@@ -3,6 +3,7 @@ ja:
     index:
       account_name: "アカウント名 または メールアドレス"
       login: "ログイン"
+      login_by_twitter: "twitterアカウントでログイン"
       password: "パスワード"
   sign_up:
     create:
@@ -14,6 +15,7 @@ ja:
       password: "パスワード"
       password_confirmation: "パスワード(確認)"
       register: "登録"
+      sign_up_by_twitter: "twitterアカウントで登録"
   settings:
     accounts:
       show:
@@ -30,3 +32,9 @@ ja:
       update:
         message_1: "メールアドレスの認証を行わなければなりません。"
         message_2: "送信されたメールのリンクをクリックし、メールアドレスを認証してください。"
+  thirdparty:
+    oauth:
+      callback:
+        email: "Email"
+        name: "アカウント名"
+        register: "登録"

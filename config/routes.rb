@@ -17,7 +17,8 @@ Rails.application.routes.draw do
     end
   end
 
-  get "/auth/twitter/callback", to: "thirdparty/oauth#callback_twitter"
+  get "/auth/:provider/callback", to: "thirdparty/oauth#callback"
+  post "/auth/:provider/callback", to: "thirdparty/oauth#create", as: "thirdparty_oauth"
 
   require 'sidekiq/web'
   require 'admin_constraint'

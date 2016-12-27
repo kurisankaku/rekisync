@@ -3,6 +3,7 @@ en:
     index:
       account_name: "Account name or Email address"
       login: "Login"
+      login_by_twitter: "Login by twitter account."
       password: "Password"
   sign_up:
     create:
@@ -14,6 +15,7 @@ en:
       password: "Password"
       password_confirmation: "Password Confirmation"
       register: "Register"
+      sign_up_by_twitter: "Sign up by twitter account."
   settings:
     accounts:
       show:
@@ -30,3 +32,9 @@ en:
       update:
         message_1: "You must confirm your email address."
         message_2: "Please click the link of the sent email."
+  thirdparty:
+    oauth:
+      callback:
+        email: "Email"
+        name: "Name"
+        register: "Register"

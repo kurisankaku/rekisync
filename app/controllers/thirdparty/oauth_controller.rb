@@ -1,15 +1,16 @@
 module Thirdparty
   # OAuth controller.
   class OauthController < ApplicationController
-    # Callback from twitter.
-    def callback_twitter
+    skip_before_action :authenticate_user!
+    # Callback from oauth.
+    def callback
       user = account_service.find(provider: auth_hash[:provider], uid: auth_hash[:uid])
       if user.present? && user.confirmed?
         self.current_user = user
         redirect_to root_path
       else
         session[:auth_hash] = auth_hash
-        @params = { email: "", name: auth_hash[:info][:nickname] }
+        @params = { email: "", name: auth_hash[:info][:nickname], provider: params[:provider] }
         render :callback
       end
     end
@@ -38,7 +39,7 @@ module Thirdparty
 
     # Fetch account service.
     def account_service
-      @account_service ||= AccountService.new(strategy: AccountStrategies::Thirdparty.new)
+      @account_service ||= AccountService.new(strategy: ::AccountStrategies::ThirdParty.new)
     end
   end
 end
