@@ -70,6 +70,11 @@ describe User do
         expect(model).to have(1).errors_on(:password)
       end
 
+      it "is invalid when it is blank" do
+        model.password = " "
+        expect(model).to have(2).errors_on(:password)
+      end
+
       it "is invalid when it not include number" do
         model.password = "abcdefgh"
         expect(model).to have(1).errors_on(:password)

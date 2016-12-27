@@ -21,8 +21,8 @@ class User < ApplicationRecord
             length: { minimum: 8 },
             format: { with: PASSWORD_FORMAT },
             confirmation: true,
-            if: "password.present?"
-  validates :password_confirmation, presence: true, if: "password.present?"
+            unless: "password.nil?"
+  validates :password_confirmation, presence: true, unless: "password.nil?"
   validates :name,
             presence: true,
             format: { with: NAME_FORMAT },
