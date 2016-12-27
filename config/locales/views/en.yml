@@ -38,3 +38,6 @@ en:
         email: "Email"
         name: "Name"
         register: "Register"
+      create:
+        message_1: "You must confirm your email address."
+        message_2: "Please click the link of the sent email."

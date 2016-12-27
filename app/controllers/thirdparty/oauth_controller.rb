@@ -26,7 +26,6 @@ module Thirdparty
         render :callback, status: 400
       else
         session[:auth_hash] = nil
-        redirect_to root_path
       end
     end
 
