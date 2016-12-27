@@ -3,13 +3,13 @@ module Thirdparty
   class OauthController < ApplicationController
     # Callback from twitter.
     def callback_twitter
-      #TODO Find user by auth_hash
-      user = nil
+      user = account_service.find(provider: auth_hash[:provider], uid: auth_hash[:uid])
       if user.present? && user.confirmed?
         self.current_user = user
         redirect_to root_path
       else
-        @params = { email: "", name: "" }
+        session[:auth_hash] = auth_hash
+        @params = { email: "", name: auth_hash[:info][:nickname] }
         render :callback
       end
     end
@@ -17,12 +17,14 @@ module Thirdparty
     # Create account.
     def create
       @error = execute_action do
+        account_service.create(params, auth_hash: session[:auth_hash])
       end
 
       if @error.present?
         @params = params
         render :callback, status: 400
       else
+        session[:auth_hash] = nil
         redirect_to root_path
       end
     end
@@ -31,7 +33,12 @@ module Thirdparty
 
     # fetch omniauth info.
     def auth_hash
-      request.env['omniauth.auth']
+      request.env["omniauth.auth"]
+    end
+
+    # Fetch account service.
+    def account_service
+      @account_service ||= AccountService.new(strategy: AccountStrategies::Thirdparty.new)
     end
   end
 end
