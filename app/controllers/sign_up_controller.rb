@@ -8,7 +8,7 @@ class SignUpController < ApplicationController
   # Create new account.
   def create
     @error = execute_action do
-      AccountService.new.create(params)
+      account_service.create(params)
     end
     if @error.present?
       @params = params
@@ -18,7 +18,14 @@ class SignUpController < ApplicationController
 
   # Confirm email.
   def confirm_email
-    self.current_user = AccountService.new.confirm_email(params[:token])
+    self.current_user = account_service.confirm_email(params[:token])
     redirect_to root_path
+  end
+
+  private
+
+  # Fetch account service.
+  def account_service
+    @account_service ||= AccountService.new
   end
 end
