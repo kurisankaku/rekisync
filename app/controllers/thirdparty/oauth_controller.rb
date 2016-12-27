@@ -5,7 +5,7 @@ module Thirdparty
     # Callback from oauth.
     def callback
       user = account_service.find(provider: auth_hash[:provider], uid: auth_hash[:uid])
-      if user.present? && user.confirmed?
+      if user.try(:confirmed?)
         self.current_user = user
         redirect_to root_path
       else
