@@ -3,9 +3,7 @@ module ErrorHandlable
   extend ActiveSupport::Concern
 
   included do
-    unless Rails.env.development?
-      rescue_from Exception, with: :server_error
-    end
+    rescue_from Exception, with: :server_error unless Rails.env.development?
     rescue_from UnAuthorizedError, with: :unauthorized_error
   end
 
@@ -14,9 +12,9 @@ module ErrorHandlable
     logger.fatal build_log(e, 500).to_json
 
     if request.xhr?
-      render json: { error: '500 error' }, status: 500
+      render json: { error: "500 error" }, status: 500
     else
-      render file: Rails.root.join('public/500.html'), status: 500, layout: false, content_type: 'text/html'
+      render file: Rails.root.join("public/500.html", status: 500, layout: false, content_type: "text/html")
     end
   end
 
@@ -25,7 +23,7 @@ module ErrorHandlable
     logger.error build_log(e, 401).to_json
 
     if request.xhr?
-      render json: { error: '401 error' }, status: 401
+      render json: { error: "401 error" }, status: 401
     else
       redirect_to login_index_path, alert: :unauthorized
     end
@@ -37,15 +35,16 @@ module ErrorHandlable
   # @return [Hash] error.
   def execute_action
     errors = {}
-    log = {}
-    begin
-      yield
-    rescue ActiveRecord::RecordInvalid => e
-      errors = e.record.errors.details
-      logger.error build_log(e, 400).merge!(details: errors).to_json
-    rescue BadRequestError => e
-      logger.error build_log(e, e.status_code).to_json
-      errors = e.format_views_error
+    ActiveRecord::Base.transaction do
+      begin
+        yield
+      rescue ActiveRecord::RecordInvalid => e
+        errors = e.record.errors.details
+        logger.error build_log(e, 400).merge!(details: errors).to_json
+      rescue BadRequestError => e
+        logger.error build_log(e, e.status_code).to_json
+        errors = e.format_views_error
+      end
     end
     errors
   end
@@ -55,7 +54,7 @@ module ErrorHandlable
   # @param [Integer] status
   # @return [Hash] log.
   def build_log(e, status)
-    log = { log_type: "server", status: status, user_agent: request.try(:headers).try(:[],:HTTP_USER_AGENT), user_id: current_user.try(:id) }
+    log = { log_type: "server", status: status, user_agent: request.try(:headers).try(:[], :HTTP_USER_AGENT), user_id: current_user.try(:id) }
     log.merge!(message: e.message, backtrace: e.backtrace.join("\n")) if e.present?
     log
   end
