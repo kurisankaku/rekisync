@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   end
 
   get "/auth/:provider/callback", to: "thirdparty/oauth#callback"
-  post "/auth/:provider/callback", to: "thirdparty/oauth#create", as: "thirdparty_oauth"
+  post "/thirdparty/oauth", to: "thirdparty/oauth#create", as: "thirdparty_oauth"
 
   require 'sidekiq/web'
   require 'admin_constraint'

@@ -10,7 +10,7 @@ module Thirdparty
         redirect_to root_path
       else
         session[:auth_hash] = auth_hash
-        @params = { email: "", name: auth_hash[:info][:nickname], provider: params[:provider] }
+        @params = { email: "", name: auth_hash[:info][:nickname] }
         render :callback
       end
     end
