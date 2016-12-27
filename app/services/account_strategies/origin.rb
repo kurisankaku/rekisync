@@ -6,21 +6,24 @@ module AccountStrategies
     # @param [Hash] option
     # @return [User] created account.
     def create(params, option = {})
-      user = User.where(email: params[:email], confirmed_at: nil).first
-      if user.nil?
+      user = User.where(email: params[:email], confirmed_at: nil).or(User.where(name: params[:name], confirmed_at: nil)).first
+      if user.nil? || user.third_party_access_tokens.present?
         user = User.new(sign_up_params(params))
+        user.skip_confirmation! if option[:skip_confirmation]
+        user.tap(&:save!)
+      else
+        user.assign_attributes(sign_up_params(params))
+        user.password_digest = nil if params[:password].blank?
+        user.tap(&:save!)
       end
-
-      user.skip_confirmation! if option[:skip_confirmation]
-      user.tap(&:save!)
     end
 
     # Find account by params.
     #
-    # @param [ActionController::Parameters] params parameters.
+    # @param [Hash] params parameters.
     # @return [User] account.
     def find(params)
-      User.find_by_email(params[:email])
+      User.where(email: params[:email]).or(User.where(name: params[:name])).first
     end
 
     # Authenticate account.
