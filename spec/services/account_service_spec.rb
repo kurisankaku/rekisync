@@ -3,129 +3,49 @@ require "rails_helper"
 describe AccountService do
   include ErrorExamples
 
-  describe "#create" do
-    subject { AccountService.new.create(params, option) }
-    let!(:params) { ActionController::Parameters.new(attrs) }
-    let!(:option) { {} }
-    let!(:email) { "test@test.test.com" }
-    let!(:attrs) do
-      { name: "test",
-        email: email,
-        password: "Abcd1234/",
-        password_confirmation: "Abcd1234/" }
-    end
-    context "email not existed" do
-      it "creates new user" do
-        expect { subject }.to change(User, :count).by(1)
-      end
-
-      it "empty confirmed_at" do
-        user = subject
-        expect(user.confirmed_at).to be_nil
+  describe "#initialize" do
+    context "initialize with no option." do
+      it "has origin strategy" do
+        result = described_class.new
+        expect(result.instance_variable_get(:@strategy)).to be_a ::AccountStrategies::Origin
       end
     end
-    context "email exists" do
-      context "and not confirmed yet" do
-        let!(:user) { create :user, email: email, skip_confirm: false }
-        it "updates exists user" do
-          expect { subject }.to change(User, :count).by(0)
-        end
-      end
-      context "and confirmed already" do
-        let!(:user) { create :user, email: email, skip_confirm: true }
-        it "raises not unique error." do
-          begin
-            subject
-            fail
-          rescue ActiveRecord::RecordInvalid => e
-            expect(e.record.errors.details[:email]).to include(error: :taken, value: email)
-          end
-        end
-      end
-    end
-    context "skip confirmation" do
-      before do
-        option[:skip_confirmation] = true
-      end
-      it "creates new user" do
-        expect { subject }.to change(User, :count).by(1)
-      end
-
-      it "filled confirmed_at" do
-        user = subject
-        expect(user.confirmed_at).to be_present
-      end
-
-      it "calls skip confirmation!" do
-        user = build(:user)
-        expect(User).to receive(:new).and_return(user)
-        expect(user).to receive(:skip_confirmation!)
-        subject
+    context "initialize with option." do
+      it "has other strategy" do
+        result = described_class.new(strategy: ::AccountStrategies::ThirdParty.new)
+        expect(result.instance_variable_get(:@strategy)).to be_a ::AccountStrategies::ThirdParty
       end
     end
   end
 
-  describe "#authenticate" do
-    subject { AccountService.new.authenticate(params) }
-    let!(:params) { ActionController::Parameters.new(attrs) }
-    let!(:user) { create :user,
-                  skip_confirm: true,
-                  email: email,
-                  name: name,
-                  password: password,
-                  password_confirmation: password,
-                  current_sign_in_at: current_sign_in_at,
-                  last_sign_in_at: last_sign_in_at,
-                  locked_at: locked_at,
-                  failed_attempts: 4
-    }
-    let!(:email) { "test@test.test.com" }
-    let!(:name) { "test" }
-    let!(:password) { "Abcd1234/" }
-    let!(:current_sign_in_at) { Time.local(2015, 12, 30) }
-    let!(:last_sign_in_at) { Time.local(2015, 12, 29) }
-    let!(:locked_at) { Time.local(2015, 12, 31) }
-    let!(:attrs) do
-      {
-        account_name: email,
-        password: password
-      }
-    end
-    before { Timecop.freeze(Time.local(2016, 1, 1)) }
+  describe "#create" do
+    let!(:params) { ActionController::Parameters.new({}) }
+    let!(:option) { {} }
 
-    context "authorizes account" do
-      context "account found by email" do
-        it "updates sign in at and failed attempts, locked at" do
-          attrs[:account_name] = email
-          user = subject
-          expect(user.current_sign_in_at).to eq Time.zone.now
-          expect(user.last_sign_in_at).to eq current_sign_in_at
-          expect(user.locked_at).to be_nil
-          expect(user.failed_attempts).to eq 0
-        end
-      end
-      context "account found by name" do
-        it "updates sign in at and failed attempts, locked at" do
-          attrs[:account_name] = name
-          user = subject
-          expect(user.current_sign_in_at).to eq Time.zone.now
-          expect(user.last_sign_in_at).to eq current_sign_in_at
-          expect(user.locked_at).to be_nil
-          expect(user.failed_attempts).to eq 0
-        end
-      end
+    it "call strategy's create method" do
+      strategy = AccountStrategies::Origin.new
+      expect(strategy).to receive(:create).with(params, option)
+      described_class.new(strategy: strategy).create(params, option)
     end
-    context "account not found" do
-      before { params[:account_name] = name + "a" }
-      it_behaves_like "bad request error", :invalid_account_name_or_password, :account_name
+  end
+
+  describe "#find" do
+    let!(:params) { ActionController::Parameters.new({}) }
+
+    it "call strategy's find method" do
+      strategy = AccountStrategies::Origin.new
+      expect(strategy).to receive(:find).with(params)
+      described_class.new(strategy: strategy).find(params)
     end
-    context "account is locked" do
-      let!(:locked_at) { Time.now + 1.seconds }
-      it_behaves_like "bad request error", :account_locked, :account_name
-    end
-    context "specified password is not correct" do
-      before { params[:password] = password + "a" }
-      it_behaves_like "bad request error", :invalid_account_name_or_password, :account_name
+  end
+
+  describe "#authenticate" do
+    let!(:params) { ActionController::Parameters.new({}) }
+
+    it "call strategy's authenticate method" do
+      strategy = AccountStrategies::Origin.new
+      expect(strategy).to receive(:authenticate).with(params)
+      described_class.new(strategy: strategy).authenticate(params)
     end
   end
 

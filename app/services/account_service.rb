@@ -15,7 +15,7 @@ class AccountService
 
   # Find account by params.
   #
-  # @param [ActionController::Parameters] params parameters.
+  # @param [Hash] params parameters.
   # @return [User] account.
   def find(params)
     @strategy.find(params)
