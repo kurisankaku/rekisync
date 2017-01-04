@@ -69,7 +69,7 @@ Rails.application.configure do
   config.active_support.deprecation = :notify
 
   # Log rotate.
-  config.logger = Logger.new("log/production.log", "daily")
+  config.logger = ActiveSupport::Logger.new("log/production.log", "daily")
   # Log format.
   config.logger.formatter = ::Logger::CustomLogger.new
 

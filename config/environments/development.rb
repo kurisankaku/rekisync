@@ -40,7 +40,7 @@ Rails.application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
   # Log rotate.
-  config.logger = Logger.new("log/development.log", "daily")
+  config.logger = ActiveSupport::Logger.new("log/development.log", "daily")
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
