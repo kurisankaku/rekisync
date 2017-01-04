@@ -124,7 +124,12 @@ class User < ApplicationRecord
 
   # Re send confirmation notification.
   def resend_confirmation_notification!
-    send_confirmation_notification if confirmation_token.present?
+    if confirmation_token.present?
+      generate_confirmation_token_and_confirmation_sent_at
+      self.save!
+
+      send_confirmation_notification
+    end
   end
 
   private

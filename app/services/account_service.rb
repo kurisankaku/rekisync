@@ -127,6 +127,24 @@ class AccountService
     user.destroy
   end
 
+  # Resend confirmation notification.
+  #
+  # @param [String] id user id.
+  # @return [User] user.
+  def resend_confirmation_notification(id)
+    user = User.find_by_id(id)
+    if user.nil?
+      fail BadRequestError.user_not_found(:id), "User not found."
+    end
+
+    if user.confirmed?
+      fail BadRequestError.new(code: :already_confirmed, field: :email), "User email already confirmed."
+    end
+
+    user.resend_confirmation_notification!
+    user
+  end
+
   private
 
   # Sanitize params for update_password action.

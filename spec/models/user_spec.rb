@@ -513,4 +513,35 @@ describe User do
       end
     end
   end
+
+  describe "resend_confirmation_notification!" do
+    subject { user.resend_confirmation_notification! }
+
+    before { Timecop.freeze(Time.local(2016, 1, 1)) }
+    let!(:user) { create :user, skip_confirm: true, confirmation_sent_at: Time.local(2015, 12, 31) }
+
+    context "when confirmation token is nil" do
+      before { user.confirmation_token = nil }
+
+      it "not send confirmation mail" do
+        message_delivery = instance_double(ActionMailer::MessageDelivery)
+        expect(ConfirmationMailer).not_to receive(:confirmation_instructions)
+        subject
+        expect(user.confirmation_sent_at).to eq Time.local(2015, 12, 31)
+      end
+    end
+
+    context "when confirmation token is presence" do
+      before { user.confirmation_token = "token" }
+
+      it "send confirmation mail" do
+        message_delivery = instance_double(ActionMailer::MessageDelivery)
+        expect(ConfirmationMailer).to receive(:confirmation_instructions).and_return(message_delivery)
+        expect(message_delivery).to receive(:deliver_later)
+
+        subject
+        expect(user.confirmation_sent_at).to eq Time.local(2016, 1, 1)
+      end
+    end
+  end
 end

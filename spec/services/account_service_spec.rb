@@ -287,4 +287,29 @@ describe AccountService do
       it_behaves_like "bad request error", :incorrect, :password
     end
   end
+
+  describe "#resend_confirmation_notification" do
+    subject { AccountService.new.resend_confirmation_notification(id) }
+
+    context "when user not found" do
+      let!(:id) { nil }
+      it_behaves_like "bad request error", :user_not_found, :id
+    end
+
+    context "when user already confirmed" do
+      let!(:user) { create :user, skip_confirm: true }
+      let!(:id) { user.id }
+      it_behaves_like "bad request error", :already_confirmed, :email
+    end
+
+    context "when user not confirmed yet" do
+      let!(:user) { create :user, skip_confirm: false }
+      let!(:id) { user.id }
+      it "resend confirmation notification" do
+        expect(User).to receive(:find_by_id).and_return(user)
+        expect(user).to receive(:resend_confirmation_notification!)
+        subject
+      end
+    end
+  end
 end
