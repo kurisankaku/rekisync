@@ -13,8 +13,10 @@ class LoginController < ApplicationController
     if @error.present?
       @params = params.slice(:account_name)
       render :index, status: 400
-    else
+    elsif self.current_user.try(:confirmed?)
       redirect_to root_path
+    else
+      redirect_to conrim_email_index_path
     end
   end
 

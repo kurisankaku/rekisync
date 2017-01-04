@@ -8,18 +8,12 @@ class SignUpController < ApplicationController
   # Create new account.
   def create
     @error = execute_action do
-      account_service.create(params)
+      self.current_user = account_service.create(params)
     end
     if @error.present?
-      @params = params
+      @params = params.except(:password, :password_confirmation)
       render :index, status: 400
     end
-  end
-
-  # Confirm email.
-  def confirm_email
-    self.current_user = account_service.confirm_email(params[:token])
-    redirect_to root_path
   end
 
   private

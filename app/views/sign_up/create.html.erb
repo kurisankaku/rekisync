@@ -1,2 +1,2 @@
-<div><%= t(".message_1") %></div>
-<div><%= t(".message_2") %></div>
+<%= render :partial => "shared/error", :locals => { error: @error } %>
+<%= render :partial => "shared/confirmation/sent_email" %>

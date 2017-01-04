@@ -4,14 +4,16 @@ module Thirdparty
     skip_before_action :authenticate_user!
     # Callback from oauth.
     def callback
-      user = account_service.find(provider: auth_hash[:provider], uid: auth_hash[:uid])
-      if user.try(:confirmed?)
-        self.current_user = user
-        redirect_to root_path
-      else
+      self.current_user = account_service.find(provider: auth_hash[:provider], uid: auth_hash[:uid])
+
+      if self.current_user.nil?
         session[:auth_hash] = auth_hash
         @params = { email: "", name: auth_hash[:info][:nickname] }
         render :callback
+      elsif user.confirmed?
+        redirect_to root_path
+      else
+        redirect_to confirm_email_index_path
       end
     end
 

@@ -9,8 +9,14 @@ class ConfirmEmailController < ApplicationController
   end
 
   def show
-    self.current_user = account_service.confirm_email(params[:id])
-    redirect_to root_path
+    @error = execute_action do
+      self.current_user = account_service.confirm_email(params[:id])
+    end
+    if @error.present?
+      render :show, status: 400
+    else
+      redirect_to root_path
+    end
   end
 
   # Resend confirm email.
