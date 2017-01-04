@@ -47,6 +47,7 @@ gem 'kramdown'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem "omniauth-google-oauth2"
+gem "omniauth-facebook"
 
 # Simple, Heroku-friendly Rails app configuration using ENV and a single YAML file
 gem 'figaro'
