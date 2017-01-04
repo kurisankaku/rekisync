@@ -1,4 +1,8 @@
 en:
+  confirm_email:
+    index:
+      message_1: "You must confirm your email address."
+      message_2: "Please click the link of the sent email."
   login:
     index:
       account_name: "Account name or Email address"
@@ -6,9 +10,6 @@ en:
       login_by_twitter: "Login by twitter account."
       password: "Password"
   sign_up:
-    create:
-      message_1: "You must confirm your email address."
-      message_2: "Please click the link of the sent email."
     index:
       email: "Email"
       name: "Name"
@@ -38,6 +39,13 @@ en:
         email: "Email"
         name: "Name"
         register: "Register"
-      create:
-        message_1: "You must confirm your email address."
+  shared:
+    confirmation:
+      sent_email_message:
+        message_1: "Sent email to registered email address."
         message_2: "Please click the link of the sent email."
+      send_email_link_or_form:
+        email: "Email Address"
+        message_1: "If you do not receive the email, please resend the email or register a new email address."
+        resend_email: "Resend email"
+        update_email: "Update email address"

@@ -1,0 +1,18 @@
+<div><%= t(".message_1") %></div>
+<br>
+<div>
+  <a href="/confirm_email/resend"><%= t(".resend_email") %></a>
+</div>
+<br>
+<h4>Email Changes</h4>
+<form action="<%= update_email_confirm_email_index_path %>" method="post">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <input type="hidden" name="_method" value="put">
+  <div>
+    <label for="email"><%= t(".email") %></label>
+    <input type="email" name="email" value="<%= @params.try(:[], :email) %>">
+  </div>
+  <div>
+    <input type="submit" value="<%= t(".update_email") %>">
+  </div>
+</form>

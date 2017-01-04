@@ -1,4 +1,8 @@
 ja:
+  confirm_email:
+    index:
+      message_1: "メールアドレスの認証を行わなければなりません。"
+      message_2: "送信されたメールのリンクをクリックし、メールアドレスを認証してください。"
   login:
     index:
       account_name: "アカウント名 または メールアドレス"
@@ -6,9 +10,6 @@ ja:
       login_by_twitter: "twitterアカウントでログイン"
       password: "パスワード"
   sign_up:
-    create:
-      message_1: "メールアドレスの認証を行わなければなりません。"
-      message_2: "送信されたメールのリンクをクリックし、メールアドレスを認証してください。"
     index:
       email: "Email"
       name: "アカウント名"
@@ -38,6 +39,13 @@ ja:
         email: "Email"
         name: "アカウント名"
         register: "登録"
-      create:
-        message_1: "メールアドレスの認証を行わなければなりません。"
+  shared:
+    confirmation:
+      sent_email_message:
+        message_1: "登録されたメールアドレスに認証メールを送信しました。"
         message_2: "送信されたメールのリンクをクリックし、メールアドレスを認証してください。"
+      send_email_link_or_form:
+        email: "メールアドレス"
+        message_1: "メールが届かない場合は、メールを再送信するか、新しいメールアドレスを登録してください。"
+        resend_email: "メールを再送信"
+        update_email: "メールアドレスを更新"

@@ -5,9 +5,11 @@ Rails.application.routes.draw do
     resources :login, only: [:index, :create]
     delete "logout" => "login#destroy", as: "logout"
 
-    resources :sign_up, only: [:index, :create] do
+    resources :sign_up, only: [:index, :create]
+    resources :confirm_email, only: [:show, :index] do
       collection do
-        get "confirm_email/:token" => :confirm_email, as: "confirm_email"
+        get "resend" => :resend, as: "resend"
+        put "update_email" => :update_email, as: "update_email"
       end
     end
 
