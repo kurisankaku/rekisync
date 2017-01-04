@@ -8,8 +8,12 @@ module Authenticatable
 
   # Authenticate user.
   def authenticate_user!
-    self.current_user = User.find_by_id(session[:user_id]) || (fail UnAuthorizedError.new)
-    fail BadRequest.new(:unconfirmed, :email), "Unconfirmed account email." unless current_user.confirmed?
+    user = User.find_by_id(session[:user_id])
+    if user.nil? || !user.confirmed?
+      fail UnAuthorizedError.new
+    else
+      self.current_user = user
+    end
   end
 
   # Set current_user.
@@ -20,6 +24,11 @@ module Authenticatable
 
   # Fetch current user.
   def current_user
-    @current_user_no_direct_call
+    @current_user_no_direct_call || User.find_by_id(session[:user_id])
+  end
+
+  # Fetch current user id.
+  def current_user_id
+    session[:user_id]
   end
 end
