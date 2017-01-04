@@ -8,7 +8,7 @@ module Thirdparty
 
       if self.current_user.nil?
         session[:auth_hash] = auth_hash
-        @params = { email: "", name: auth_hash[:info][:nickname] }
+        @params = oauth_hash_params(auth_hash)
         render :callback
       elsif self.current_user.confirmed?
         redirect_to root_path
@@ -41,6 +41,22 @@ module Thirdparty
     # Fetch account service.
     def account_service
       @account_service ||= AccountService.new(strategy: ::AccountStrategies::ThirdParty.new)
+    end
+
+    # Fetch oauth hash params for view.
+    def oauth_hash_params(param)
+      case param[:provider]
+      when "twitter"
+        {
+          email: "",
+          name: param[:info][:nickname]
+        }
+      when "google_oauth2"
+        {
+          email: param[:info][:email],
+          name: param[:info][:name]
+        }
+      end
     end
   end
 end

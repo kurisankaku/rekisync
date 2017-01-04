@@ -70,6 +70,28 @@ describe AccountStrategies::ThirdParty do
         expect(result[:token]).to eq "token"
       end
     end
+    context "provider eq google_oauth2" do
+      let(:params) do
+        {
+          provider: "google_oauth2",
+          uid: "uid",
+          credentials:
+          {
+            token: "token",
+            refresh_token: "refresh_token",
+            expires_at: "expires_at"
+          }
+        }
+      end
+      it "generate attributes of ThirdPartyAccessToken" do
+        result = subject
+        expect(result[:uid]).to eq "uid"
+        expect(result[:provider]).to eq "google_oauth2"
+        expect(result[:token]).to eq "token"
+        expect(result[:refresh_token]).to eq "refresh_token"
+        expect(result[:expires_in]).to eq "expires_at"
+      end
+    end
   end
 
   describe "#find" do

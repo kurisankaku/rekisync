@@ -51,11 +51,20 @@ module AccountStrategies
     # @param [Hash] params reqeust.env["omniauth.auth"] hash.
     # @return [Hash] ThirdPartyAccessToken model attributes.
     def third_party_access_token_params(params)
-      if params[:provider] == "twitter"
+      case params[:provider]
+      when "twitter"
         {
           uid: params[:uid],
           provider: params[:provider],
           token: params[:credentials].try(:[], :token)
+        }
+      when "google_oauth2"
+        {
+          uid: params[:uid],
+          provider: params[:provider],
+          token: params[:credentials].try(:[], :token),
+          refresh_token: params[:credentials].try(:[], :refresh_token),
+          expires_in: params[:credentials].try(:[], :expires_at)
         }
       end
     end
