@@ -8,6 +8,7 @@ en:
       account_name: "Account name or Email address"
       login: "Login"
       login_by_twitter: "Login by twitter account."
+      login_by_google: "Login by google account."
       password: "Password"
   sign_up:
     index:
