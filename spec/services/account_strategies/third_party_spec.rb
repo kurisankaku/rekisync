@@ -92,6 +92,26 @@ describe AccountStrategies::ThirdParty do
         expect(result[:expires_in]).to eq "expires_at"
       end
     end
+    context "provider eq facebook" do
+      let(:params) do
+        {
+          provider: "facebook",
+          uid: "uid",
+          credentials:
+          {
+            token: "token",
+            expires_at: "expires_at"
+          }
+        }
+      end
+      it "generate attributes of ThirdPartyAccessToken" do
+        result = subject
+        expect(result[:uid]).to eq "uid"
+        expect(result[:provider]).to eq "facebook"
+        expect(result[:token]).to eq "token"
+        expect(result[:expires_in]).to eq "expires_at"
+      end
+    end
   end
 
   describe "#find" do

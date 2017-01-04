@@ -56,6 +56,11 @@ module Thirdparty
           email: param[:info][:email],
           name: param[:info][:name]
         }
+      when "facebook"
+        {
+          email: param[:info][:email],
+          name: param[:info][:name]
+        }
       end
     end
   end

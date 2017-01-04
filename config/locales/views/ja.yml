@@ -7,8 +7,9 @@ ja:
     index:
       account_name: "アカウント名 または メールアドレス"
       login: "ログイン"
-      login_by_twitter: "twitterアカウントでログイン"
+      login_by_facebook: "facebookアカウントでログイン"
       login_by_google: "googleアカウントでログイン"
+      login_by_twitter: "twitterアカウントでログイン"
       password: "パスワード"
   sign_up:
     index:

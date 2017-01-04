@@ -66,6 +66,13 @@ module AccountStrategies
           refresh_token: params[:credentials].try(:[], :refresh_token),
           expires_in: params[:credentials].try(:[], :expires_at)
         }
+      when "facebook"
+        {
+          uid: params[:uid],
+          provider: params[:provider],
+          token: params[:credentials].try(:[], :token),
+          expires_in: params[:credentials].try(:[], :expires_at)
+        }
       end
     end
 
