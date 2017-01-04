@@ -10,7 +10,7 @@ module Thirdparty
         session[:auth_hash] = auth_hash
         @params = { email: "", name: auth_hash[:info][:nickname] }
         render :callback
-      elsif user.confirmed?
+      elsif self.current_user.confirmed?
         redirect_to root_path
       else
         redirect_to confirm_email_index_path
