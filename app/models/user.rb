@@ -6,8 +6,8 @@ class User < ApplicationRecord
   acts_as_paranoid
 
   before_create :generate_confirmation_token_and_confirmation_sent_at, if: :send_confirmation_notification?
-  after_commit :send_confirmation_notification, on: :create, if: :send_confirmation_notification?
   before_update :postpone_email_change_until_confirmation_and_regenerate_confirmation_token, if: :postpone_email_change?
+  after_commit :send_confirmation_notification, on: :create, if: :send_confirmation_notification?
   after_commit :send_reconfirmation_instructions, on: :update, if: :reconfirmation_required?
   after_commit :send_reset_password_instructions, on: :update, if: :reset_password_instructions_require?
 
@@ -120,6 +120,11 @@ class User < ApplicationRecord
     self.failed_attempts += 1
     self.locked_at = Time.zone.now if LIMIT_FAILS_COUNT < self.failed_attempts
     self.tap(&:save!)
+  end
+
+  # Re send confirmation notification.
+  def resend_confirmation_notification!
+    send_confirmation_notification if confirmation_token.present?
   end
 
   private
