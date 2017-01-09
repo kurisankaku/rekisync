@@ -29,16 +29,6 @@ describe AccountService do
     end
   end
 
-  describe "#find" do
-    let!(:params) { ActionController::Parameters.new({}) }
-
-    it "call strategy's find method" do
-      strategy = AccountStrategies::Origin.new
-      expect(strategy).to receive(:find).with(params)
-      described_class.new(strategy: strategy).find(params)
-    end
-  end
-
   describe "#authenticate" do
     let!(:params) { ActionController::Parameters.new({}) }
 

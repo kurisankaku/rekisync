@@ -25,15 +25,18 @@ module AccountStrategies
     # @param [ActionController::Parameters] params parameters.
     # @return [User] user.
     def authenticate(params)
-      fail "Do not call this function. Authentication is delegated to third party's system."
-    end
+      token = find_access_token(params[:auth_hash])
+      return nil if token.nil?
 
-    # Find account by third party params.
-    #
-    # @param [Hash] params parameters.
-    # @return [User] account.
-    def find(params)
-      find_access_token(params).try(:user)
+      token.update!(third_party_access_token_params(params[:auth_hash]))
+      user = token.user
+      return nil if user.nil?
+
+      user.last_sign_in_at = user.current_sign_in_at
+      user.current_sign_in_at = Time.zone.now
+      user.failed_attempts = 0
+      user.locked_at = nil
+      user.tap(&:save!)
     end
 
     private

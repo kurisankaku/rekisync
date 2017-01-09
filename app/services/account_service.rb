@@ -13,14 +13,6 @@ class AccountService
     @strategy.create(params, option)
   end
 
-  # Find account by params.
-  #
-  # @param [Hash] params parameters.
-  # @return [User] account.
-  def find(params)
-    @strategy.find(params)
-  end
-
   # Authenticate account.
   #
   # @param [ActionController::Parameters] params parameters.

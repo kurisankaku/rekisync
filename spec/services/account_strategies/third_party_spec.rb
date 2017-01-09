@@ -53,6 +53,51 @@ describe AccountStrategies::ThirdParty do
     end
   end
 
+  describe "#authenticate" do
+    subject { described_class.new.authenticate(params) }
+    let!(:params) { ActionController::Parameters.new(attrs) }
+    let!(:attrs) do
+      {
+        auth_hash: {
+          provider: "twitter",
+          uid: uid,
+          credentials: { token: "token" }
+        }
+      }
+    end
+    let!(:uid) { "1234" }
+
+    context "not found exist token" do
+      it "is nil" do
+        expect(subject).to be_nil
+      end
+    end
+
+    context "found exist token" do
+      let!(:access_token) { create :third_party_access_token, uid: uid, user: user, provider: "twitter" }
+      let!(:user) do
+        create :user,
+               last_sign_in_at: Time.local(2015, 12, 30),
+               current_sign_in_at: Time.local(2015, 12, 31),
+               failed_attempts: 3,
+               locked_at: Time.local(2015, 12, 31)
+      end
+      before do
+        params[:auth_hash][:credentials][:token] = "update_token"
+        Timecop.freeze(Time.local(2016, 1, 1))
+      end
+
+      it "updates access token and user attributes" do
+        user = subject
+        expect(user.last_sign_in_at).to eq Time.local(2015, 12, 31)
+        expect(user.current_sign_in_at).to eq Time.local(2016, 1, 1)
+        expect(user.failed_attempts).to eq 0
+        expect(user.locked_at).to be_nil
+        expect(user.third_party_access_tokens.first.token).to eq "update_token"
+      end
+    end
+  end
+
   describe "#third_party_access_token_params" do
     subject { described_class.new.send(:third_party_access_token_params, params) }
     context "provider eq twitter" do
@@ -110,40 +155,6 @@ describe AccountStrategies::ThirdParty do
         expect(result[:provider]).to eq "facebook"
         expect(result[:token]).to eq "token"
         expect(result[:expires_in]).to eq "expires_at"
-      end
-    end
-  end
-
-  describe "#find" do
-    subject { described_class.new.find(params) }
-    let!(:access_token) { create :third_party_access_token, uid: uid, provider: provider }
-    let!(:uid) { "1234" }
-    let!(:provider) { "twitter" }
-
-    context "specified existed record params" do
-      let!(:params) do
-        { uid: uid, provider: provider }
-      end
-      it "found third party access token" do
-        expect(subject).to be_present
-      end
-    end
-
-    context "specified not existed uid params" do
-      let!(:params) do
-        { uid: "uids", provider: provider }
-      end
-      it "not found third party access token" do
-        expect(subject).to be_nil
-      end
-    end
-
-    context "specified not existed provider params" do
-      let!(:params) do
-        { uid: uid, provider: "provider" }
-      end
-      it "not found third party access token" do
-        expect(subject).to be_nil
       end
     end
   end

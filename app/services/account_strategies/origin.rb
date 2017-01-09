@@ -18,14 +18,6 @@ module AccountStrategies
       end
     end
 
-    # Find account by params.
-    #
-    # @param [Hash] params parameters.
-    # @return [User] account.
-    def find(params)
-      User.where(email: params[:email]).or(User.where(name: params[:name])).first
-    end
-
     # Authenticate account.
     #
     # @param [ActionController::Parameters] params parameters.

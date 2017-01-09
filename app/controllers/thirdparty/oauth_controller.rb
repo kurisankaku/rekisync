@@ -4,7 +4,7 @@ module Thirdparty
     skip_before_action :authenticate_user!
     # Callback from oauth.
     def callback
-      self.current_user = account_service.find(provider: auth_hash[:provider], uid: auth_hash[:uid])
+      self.current_user = account_service.authenticate(auth_hash: auth_hash)
 
       if self.current_user.nil?
         session[:auth_hash] = auth_hash
