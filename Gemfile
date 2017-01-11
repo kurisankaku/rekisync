@@ -52,6 +52,11 @@ gem "omniauth-facebook"
 # Simple, Heroku-friendly Rails app configuration using ENV and a single YAML file
 gem 'figaro'
 
+# This gem provides a simple and extremely flexible way to upload files from Ruby applications.
+gem 'carrierwave'
+# A ruby wrapper for ImageMagick or GraphicsMagick command line.
+gem 'mini_magick'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
