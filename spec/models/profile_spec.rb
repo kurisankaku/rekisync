@@ -1,6 +1,10 @@
 require "rails_helper"
 
 describe Profile do
+  include ErrorExamples
+
+  it_behaves_like "logical deletion", :profile
+
   describe "#validate" do
     let(:model) { build :profile }
     context "name" do

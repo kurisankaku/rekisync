@@ -12,6 +12,7 @@ class User < ApplicationRecord
   after_commit :send_reset_password_instructions, on: :update, if: :reset_password_instructions_require?
 
   has_many :third_party_access_tokens, dependent: :destroy
+  has_one :profile, dependent: :destroy
 
   PASSWORD_FORMAT = /\A(?=.*\d)(?=.*[a-zA-Z])/x
   EMAIL_FORMAT = /\A[a-zA-Z0-9_.+-]+[@][a-zA-Z0-9.-]+\z/
