@@ -74,4 +74,9 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
     Timecop.return
   end
+
+  config.after(:all) do
+    # Delete upload files of test.
+    FileUtils.rm_rf(CarrierWave::Uploader::Base.root)
+  end
 end
