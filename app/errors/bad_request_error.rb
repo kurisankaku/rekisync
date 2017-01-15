@@ -6,9 +6,9 @@ class BadRequestError < BaseError
   end
 
   class << self
-    # User not found.
-    def user_not_found(field = nil)
-      self.new(code: :user_not_found, field: field)
+    # Resource not found.
+    def resource_not_found(field = nil)
+      self.new(code: :resource_not_found, field: field)
     end
   end
 end

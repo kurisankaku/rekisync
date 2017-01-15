@@ -28,7 +28,7 @@ class AccountService
   def confirm_email(token)
     user = User.find_by_confirmation_token(token)
     if user.nil?
-      fail BadRequestError.user_not_found(:token), "User not found by token."
+      fail BadRequestError.resource_not_found(:token), "User not found by token."
     end
 
     user.confirm!
@@ -41,7 +41,7 @@ class AccountService
   def update_email(params)
     user = User.find_by_id(params[:id])
     if user.nil?
-      fail BadRequestError.user_not_found(:id), "User not found."
+      fail BadRequestError.resource_not_found(:id), "User not found."
     end
 
     user.update!(email: params[:email])
@@ -55,7 +55,7 @@ class AccountService
   def update_name(params)
     user = User.find_by_id(params[:id])
     if user.nil?
-      fail BadRequestError.user_not_found(:id), "User not found."
+      fail BadRequestError.resource_not_found(:id), "User not found."
     end
 
     correct_password?(user, params[:password], :password)
@@ -70,7 +70,7 @@ class AccountService
   def update_password(params)
     user = User.find_by_id(params[:id])
     if user.nil?
-      fail BadRequestError.user_not_found(:id), "User not found."
+      fail BadRequestError.resource_not_found(:id), "User not found."
     end
 
     correct_password?(user, params[:old_password], :old_password)
@@ -85,7 +85,7 @@ class AccountService
   def reset_password(params)
     user = User.find_by_reset_password_token(params[:token])
     if user.nil?
-      fail BadRequestError.user_not_found(:token), "User not found by token."
+      fail BadRequestError.resource_not_found(:token), "User not found by token."
     end
 
     user.reset_password!(params[:password], params[:password_confirmation])
@@ -112,7 +112,7 @@ class AccountService
   def delete(params)
     user = User.find_by_id(params[:id])
     if user.nil?
-      fail BadRequestError.user_not_found(:id), "User not found."
+      fail BadRequestError.resource_not_found(:id), "User not found."
     end
 
     correct_password?(user, params[:password], :password)
@@ -126,7 +126,7 @@ class AccountService
   def resend_confirmation_notification(id)
     user = User.find_by_id(id)
     if user.nil?
-      fail BadRequestError.user_not_found(:id), "User not found."
+      fail BadRequestError.resource_not_found(:id), "User not found."
     end
 
     if user.confirmed?

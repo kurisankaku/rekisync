@@ -60,7 +60,7 @@ describe AccountService do
     end
     context "user not found by token" do
       let!(:token) { user.confirmation_token + "a" }
-      it_behaves_like "bad request error", :user_not_found, :token
+      it_behaves_like "bad request error", :resource_not_found, :token
     end
   end
 
@@ -94,7 +94,7 @@ describe AccountService do
     end
     context "user is not found by id" do
       before { params[:id] = -1 }
-      it_behaves_like "bad request error", :user_not_found, :id
+      it_behaves_like "bad request error", :resource_not_found, :id
     end
   end
 
@@ -127,7 +127,7 @@ describe AccountService do
     end
     context "user is not found by id" do
       before { params[:id] = -1 }
-      it_behaves_like "bad request error", :user_not_found, :id
+      it_behaves_like "bad request error", :resource_not_found, :id
     end
     context "specified password is not correct" do
       before { params[:password] = password + "a" }
@@ -167,7 +167,7 @@ describe AccountService do
     end
     context "user is not found by id" do
       before { params[:id] = -1 }
-      it_behaves_like "bad request error", :user_not_found, :id
+      it_behaves_like "bad request error", :resource_not_found, :id
     end
     context "specified old password is not correct" do
       before { params[:old_password] = password + "b" }
@@ -211,7 +211,7 @@ describe AccountService do
     end
     context "user not found by token" do
       before { params[:token] = user.reset_password_token + "a" }
-      it_behaves_like "bad request error", :user_not_found, :token
+      it_behaves_like "bad request error", :resource_not_found, :token
     end
   end
 
@@ -270,7 +270,7 @@ describe AccountService do
     end
     context "user is not found by id" do
       before { params[:id] = -1 }
-      it_behaves_like "bad request error", :user_not_found, :id
+      it_behaves_like "bad request error", :resource_not_found, :id
     end
     context "specified password is not correct" do
       before { params[:password] = password + "a" }
@@ -283,7 +283,7 @@ describe AccountService do
 
     context "when user not found" do
       let!(:id) { nil }
-      it_behaves_like "bad request error", :user_not_found, :id
+      it_behaves_like "bad request error", :resource_not_found, :id
     end
 
     context "when user already confirmed" do
