@@ -2,6 +2,8 @@ require "securerandom"
 
 class Profile < ApplicationRecord
   acts_as_paranoid
+  mount_uploader :avator_image, AvatorImgUploader
+  mount_uploader :background_image, BackgroundImgUploader
 
   before_create :generate_img_dir_prefix, if: "self.img_dir_prefix.blank?"
 
