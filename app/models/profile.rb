@@ -6,6 +6,7 @@ class Profile < ApplicationRecord
   before_create :generate_img_dir_prefix, if: "self.img_dir_prefix.blank?"
 
   belongs_to :user
+  belongs_to :country
 
   validates :user,
             presence: true
