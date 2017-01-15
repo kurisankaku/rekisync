@@ -17,23 +17,23 @@ ActiveRecord::Schema.define(version: 20170115051520) do
   end
 
   create_table "profiles", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
-    t.bigint   "user_id",                         null: false
-    t.string   "name",              limit: 128,   null: false
-    t.text     "about_me",          limit: 65535
-    t.string   "img_dir_prefix",    limit: 8,     null: false
-    t.string   "avator_images"
-    t.string   "background_images"
+    t.bigint   "user_id",                        null: false
+    t.string   "name",             limit: 128,   null: false
+    t.text     "about_me",         limit: 65535
+    t.string   "img_dir_prefix",   limit: 8,     null: false
+    t.string   "avator_image"
+    t.string   "background_image"
     t.datetime "birthday"
     t.integer  "country_id"
     t.string   "state_city"
     t.string   "street"
-    t.string   "website",           limit: 1024
-    t.string   "google_plus",       limit: 1024
-    t.string   "facebook",          limit: 1024
-    t.string   "twitter",           limit: 1024
+    t.string   "website",          limit: 1024
+    t.string   "google_plus",      limit: 1024
+    t.string   "facebook",         limit: 1024
+    t.string   "twitter",          limit: 1024
     t.integer  "lock_version"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_profiles_on_deleted_at", using: :btree
     t.index ["user_id"], name: "index_profiles_on_user_id", unique: true, using: :btree

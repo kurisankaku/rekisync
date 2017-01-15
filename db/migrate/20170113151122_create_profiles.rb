@@ -5,8 +5,8 @@ class CreateProfiles < ActiveRecord::Migration[5.0]
       t.string :name, null: false, limit: 128
       t.text :about_me
       t.string :img_dir_prefix, null: false, limit: 8
-      t.string :avator_images
-      t.string :background_images
+      t.string :avator_image
+      t.string :background_image
       t.datetime :birthday
       t.integer :country_id
       t.string :state_city
