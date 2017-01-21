@@ -4,7 +4,7 @@ module Concerns
 
     # Store image root directory.
     def root_dir
-      Rails.env == "development" ? "public/uploads/" : ""
+      Rails.env == "development" ? "uploads/" : ""
     end
   end
 end
