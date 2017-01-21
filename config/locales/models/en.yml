@@ -1,0 +1,18 @@
+en:
+  activerecord:
+    models:
+      profile: Profile
+    attributes:
+      profile:
+        about_me: About me
+        avator_image: Profile picture
+        background_image: Background picture
+        birthday: Birth day
+        country: Country
+        facebook: Facebook page url
+        google_plus: Google+ page url
+        name: Name
+        state_city: State / City
+        street: Street
+        twitter: Twitter page url
+        website: Web site url

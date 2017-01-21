@@ -1,0 +1,18 @@
+ja:
+  activerecord:
+    models:
+      profile: Profile
+    attributes:
+      profile:
+        about_me: プロフィール
+        avator_image: アカウント画像
+        background_image: 背景画像
+        birthday: 誕生日
+        country: 国
+        facebook: Facebookページ URL
+        google_plus: Google+ページ URL
+        name: プロフィール名
+        state_city: 都道府県 区市町村
+        street: 番地 建物名
+        twitter:  Twitterページ URL
+        website: Webサイト URL
