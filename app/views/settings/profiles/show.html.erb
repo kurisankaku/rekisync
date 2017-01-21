@@ -1,26 +1,57 @@
 <%= render :partial => "shared/error", :locals => { error: @error } %>
 <h2>Profile</h2>
 <div>
-  <span><%= t(".name") %>: </span>
+  <span><%= Profile.human_attribute_name :name %>: </span>
   <span><%= @profile.name %></span>
 </div>
 <div>
-  <span><%= t(".about_me") %>: </span>
+  <span><%= Profile.human_attribute_name :about_me %>: </span>
   <span><%= simple_format(@profile.about_me) %></span>
 </div>
 <div>
-  <span><%= t(".avator_image") %>: </span>
+  <span><%= Profile.human_attribute_name :avator_image %>: </span>
   <span><img src="<%= @profile.avator_image.try(:url) %>" alt="avator image"></span>
 </div>
 <div>
-  <span><%= t(".background_image") %>: </span>
+  <span><%= Profile.human_attribute_name :background_image %>: </span>
   <span><img src="<%= @profile.background_image.try(:url) %>" alt="background image"></span>
 </div>
 <div>
-  <span><%= t(".birth_day") %>: </span>
-  <span><%= l(@profile.birth_day, format: :long) %></span>
+  <span><%= Profile.human_attribute_name :birthday %>: </span>
+  <span><%= @profile.birthday.nil? ? "" :  l(@profile.birthday, format: :long) %></span>
 </div>
 <div>
-  <span><%= t(".country") %>: </span>
-  <span><%= t(@profile.country.try(:code), scope: [:codemaster, :country]) %></span>
+  <span><%= Profile.human_attribute_name :country %>: </span>
+  <span><%= @profile.country.try(:code).nil? ? "" : t(@profile.country.code, scope: [:codemaster, :country]) %></span>
+</div>
+<div>
+  <span><%= Profile.human_attribute_name :state_city %>: </span>
+  <span><%= @profile.state_city %></span>
+</div>
+<div>
+  <span><%= Profile.human_attribute_name :street %>: </span>
+  <span><%= @profile.street %></span>
+</div>
+<div>
+  <span><%= Profile.human_attribute_name :website %>: </span>
+  <span><%= @profile.website %></span>
+</div>
+<div>
+  <span><%= Profile.human_attribute_name :google_plus %>: </span>
+  <span><%= @profile.google_plus %></span>
+</div>
+<div>
+  <span><%= Profile.human_attribute_name :facebook %>: </span>
+  <span><%= @profile.facebook %></span>
+</div>
+<div>
+  <span><%= Profile.human_attribute_name :twitter %>: </span>
+  <span><%= @profile.twitter %></span>
+</div>
+<hr>
+<div>
+  <a href="<%= new_settings_profile_path %>"><%= t(".new_profile") %></a>
+</div>
+<div>
+  <a href="<%= edit_settings_profile_path %>"><%= t(".edit_profile") %></a>
 </div>

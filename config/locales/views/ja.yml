@@ -35,6 +35,10 @@ ja:
       update:
         message_1: "メールアドレスの認証を行わなければなりません。"
         message_2: "送信されたメールのリンクをクリックし、メールアドレスを認証してください。"
+    profiles:
+      show:
+        edit_profile: "プロフィール編集"
+        new_profile: "プロフィール新規作成"
   thirdparty:
     oauth:
       callback:
