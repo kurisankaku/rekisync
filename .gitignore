@@ -24,4 +24,7 @@
 # Ignore application configuration
 /config/application.yml
 
+# User uploads files.
+/public/uploads/**
+
 **/.DS_Store
