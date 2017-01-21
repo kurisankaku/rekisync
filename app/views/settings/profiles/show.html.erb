@@ -1,0 +1,26 @@
+<%= render :partial => "shared/error", :locals => { error: @error } %>
+<h2>Profile</h2>
+<div>
+  <span><%= t(".name") %>: </span>
+  <span><%= @profile.name %></span>
+</div>
+<div>
+  <span><%= t(".about_me") %>: </span>
+  <span><%= simple_format(@profile.about_me) %></span>
+</div>
+<div>
+  <span><%= t(".avator_image") %>: </span>
+  <span><img src="<%= @profile.avator_image.try(:url) %>" alt="avator image"></span>
+</div>
+<div>
+  <span><%= t(".background_image") %>: </span>
+  <span><img src="<%= @profile.background_image.try(:url) %>" alt="background image"></span>
+</div>
+<div>
+  <span><%= t(".birth_day") %>: </span>
+  <span><%= l(@profile.birth_day, format: :long) %></span>
+</div>
+<div>
+  <span><%= t(".country") %>: </span>
+  <span><%= t(@profile.country.try(:code), scope: [:codemaster, :country]) %></span>
+</div>
