@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     namespace :settings do
       resource :account, only: [:show, :update, :destroy]
       resource :emails, only: [:show, :update]
+      resource :profile, except: :destroy
     end
   end
 
