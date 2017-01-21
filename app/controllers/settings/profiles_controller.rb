@@ -11,6 +11,7 @@ module Settings
       if self.current_user.profile.present?
         redirect_to :edit
       end
+      @profile = Profile.new
     end
 
     # Create the profile.
@@ -20,9 +21,11 @@ module Settings
       end
 
       if @error.present?
+        @profile = Profile.new(params.except(:authenticity_token, :country, :controller, :action, :locale).permit!)
+        @profile.country = Country.find_by_code(params[:country].try(:[], :code))
         render :new, status: 400
       else
-        redirect_to :show
+        redirect_to settings_profile_url
       end
     end
 
@@ -37,9 +40,11 @@ module Settings
         ProfileService.new.update(self.current_user.profile.try(:id), params)
       end
       if @error.present?
+        @profile = Profile.new(params.except(:authenticity_token, :country, :controller, :action, :locale).permit!)
+        @profile.country = Country.find_by_code(params[:country].try(:[], :code))
         render :edit, status: 400
       else
-        redirect_to :show
+        redirect_to settings_profile_url
       end
     end
   end

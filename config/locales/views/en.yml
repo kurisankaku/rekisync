@@ -36,6 +36,10 @@ en:
         message_1: "You must confirm your email address."
         message_2: "Please click the link of the sent email."
     profiles:
+      edit:
+        update_profile: "Update"
+      new:
+        create_profile: "Create"
       show:
         edit_profile: "Edit my profile"
         new_profile: "Create my profile"

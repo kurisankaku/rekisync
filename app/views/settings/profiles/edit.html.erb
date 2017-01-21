@@ -1,0 +1,17 @@
+<%= render :partial => "shared/error", :locals => { error: @error } %>
+<form action="<%= settings_profile_path %>" method="post" enctype="multipart/form-data">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <input type="hidden" name="_method" value="put">
+  <%= render :partial => "form", :locals => { profile: @profile } %>
+  <div>
+    <label for="avator_image"><%= Profile.human_attribute_name :avator_image %></label>
+    <input type="file" size="30" id="avator_image" name="avator_image">
+  </div>
+  <div>
+    <label for="background_image"><%= Profile.human_attribute_name :background_image %></label>
+    <input type="file" size="30" id="background_image" name="background_image">
+  </div>
+  <div>
+    <input type="submit" value="<%= t(".update_profile") %>">
+  </div>
+</form>

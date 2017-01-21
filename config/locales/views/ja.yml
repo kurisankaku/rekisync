@@ -36,6 +36,10 @@ ja:
         message_1: "メールアドレスの認証を行わなければなりません。"
         message_2: "送信されたメールのリンクをクリックし、メールアドレスを認証してください。"
     profiles:
+      edit:
+        update_profile: "更新"
+      new:
+        create_profile: "保存"
       show:
         edit_profile: "プロフィール編集"
         new_profile: "プロフィール新規作成"

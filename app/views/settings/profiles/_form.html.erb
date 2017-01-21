@@ -1,0 +1,40 @@
+<div>
+  <label for="name"><%= Profile.human_attribute_name :name %></label>
+  <input type="text" name="name" id="name" value="<%= @profile.name %>">
+</div>
+<div>
+  <label for="about_me"><%= Profile.human_attribute_name :about_me %></label>
+  <textarea id="about_me" name="about_me" cols="30" rows="10"><%= @profile.about_me %></textarea>
+</div>
+<div>
+  <label for="birthday"><%= Profile.human_attribute_name :birthday %></label>
+  <input type="date" name="birthday" id="birthday" value="<%= @profile.birthday %>">
+</div>
+<div>
+  <label for="country"><%= Profile.human_attribute_name :country %></label>
+  <input type="text" name="country[code]" id="country" value="<%= @profile.country.try(:code) %>">
+</div>
+<div>
+  <label for="state_city"><%= Profile.human_attribute_name :state_city %></label>
+  <input type="text" name="state_city" id="state_city" value="<%= @profile.state_city %>">
+</div>
+<div>
+  <label for="street"><%= Profile.human_attribute_name :street %></label>
+  <input type="text" name="street" id="street" value="<%= @profile.street %>">
+</div>
+<div>
+  <label for="website"><%= Profile.human_attribute_name :website %></label>
+  <input type="text" name="website" id="website" value="<%= @profile.website %>">
+</div>
+<div>
+  <label for="google_plus"><%= Profile.human_attribute_name :google_plus %></label>
+  <input type="text" name="google_plus" id="google_plus" value="<%= @profile.google_plus %>">
+</div>
+<div>
+  <label for="facebook"><%= Profile.human_attribute_name :facebook %></label>
+  <input type="text" name="facebook" id="facebook" value="<%= @profile.facebook %>">
+</div>
+<div>
+  <label for="twitter"><%= Profile.human_attribute_name :twitter %></label>
+  <input type="text" name="twitter" id="twitter" value="<%= @profile.twitter %>">
+</div>
