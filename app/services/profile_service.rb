@@ -7,6 +7,7 @@ class ProfileService
   # @return [Profile] profile.
   def create(user, params)
     profile = Profile.new(profile_params(params))
+    profile.birthday_access_scope = AccessScope.find_by_code(params[:birthday_access_scope].try(:[], :code)) || AccessScope.find_by_code(:private)
     profile.country = Country.find_by_code(params[:country].try(:[], :code))
     profile.user = user
     profile.tap(&:save!)
@@ -23,6 +24,9 @@ class ProfileService
       fail BadRequestError.resource_not_found(:id), "Profile not found by id."
     end
     profile.country = Country.find_by_code(params[:country][:code]) if params[:country].try(:[], :code).present?
+
+    birthday_access_scope = AccessScope.find_by_code(params[:birthday_access_scope].try(:[], :code))
+    profile.birthday_access_scope = birthday_access_scope if birthday_access_scope.present?
 
     profile.update!(profile_params(params))
     profile

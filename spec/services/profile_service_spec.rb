@@ -46,6 +46,7 @@ describe ProfileService do
       expect(result.avator_image).to be_present
       expect(result.background_image).to be_present
       expect(result.birthday).to eq Time.zone.local(1988, 9, 1)
+      expect(result.birthday_access_scope).to eq AccessScope.find_by_code(:private)
       expect(result.country).to eq country
       expect(result.state_city).to eq state_city
       expect(result.street).to eq street
@@ -67,6 +68,7 @@ describe ProfileService do
              background_image: Rack::Test::UploadedFile.new("spec/support/images/background.jpg", "image/jpeg"),
              country: Country.find_by_code(:ch),
              birthday: Time.zone.local(2016, 1, 1),
+             birthday_access_scope: AccessScope.find_by_code(:private),
              state_city: Faker::Address.city,
              street: Faker::Address.street_name,
              website: Faker::Internet.url,
@@ -79,6 +81,7 @@ describe ProfileService do
     let!(:avator_image) { Rack::Test::UploadedFile.new("spec/support/images/background.jpg", "image/jpeg") }
     let!(:background_image) { Rack::Test::UploadedFile.new("spec/support/images/cat.jpg", "image/jpeg") }
     let!(:birthday) { "1988-09-01" }
+    let!(:birthday_access_scope) { AccessScope.find_by_code(:public) }
     let!(:country) { Country.find_by_code(:jp) }
     let!(:state_city) { Faker::Address.city }
     let!(:street) { Faker::Address.street_name }
@@ -93,6 +96,7 @@ describe ProfileService do
         avator_image: avator_image,
         background_image: background_image,
         birthday: birthday,
+        birthday_access_scope: { code: birthday_access_scope.code },
         country: { code: country.code },
         state_city: state_city,
         street: street,
@@ -114,6 +118,7 @@ describe ProfileService do
       expect(result.avator_image).to be_present
       expect(result.background_image).to be_present
       expect(result.birthday).to eq Time.zone.local(1988, 9, 1)
+      expect(result.birthday_access_scope).to eq birthday_access_scope
       expect(result.country).to eq country
       expect(result.state_city).to eq state_city
       expect(result.street).to eq street

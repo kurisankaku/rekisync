@@ -9,6 +9,7 @@ class Profile < ApplicationRecord
 
   belongs_to :user
   belongs_to :country
+  belongs_to :birthday_access_scope, foreign_key: :birthday_access_scope_id, class_name: AccessScope.name
 
   validates :user,
             presence: true
@@ -21,6 +22,8 @@ class Profile < ApplicationRecord
   validates :img_dir_prefix,
             presence: true,
             on: :update
+  validates :birthday_access_scope,
+            presence: true
   validates :state_city,
             length: { maximum: 255 }
   validates :street,

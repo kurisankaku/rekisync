@@ -7,7 +7,8 @@ class User < ApplicationRecord
 
   before_create :generate_confirmation_token_and_confirmation_sent_at, if: :send_confirmation_notification?
   before_update :postpone_email_change_until_confirmation_and_regenerate_confirmation_token, if: :postpone_email_change?
-  after_commit :send_confirmation_notification, on: :create, if: :send_confirmation_notification?  after_commit :send_reconfirmation_instructions, on: :update, if: :reconfirmation_required?
+  after_commit :send_confirmation_notification, on: :create, if: :send_confirmation_notification?
+  after_commit :send_reconfirmation_instructions, on: :update, if: :reconfirmation_required?
   after_commit :send_reset_password_instructions, on: :update, if: :reset_password_instructions_require?
 
   has_many :third_party_access_tokens, dependent: :destroy

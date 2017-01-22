@@ -73,6 +73,13 @@ describe Profile do
       end
     end
 
+    context "birthday_access_scope" do
+      it "is invalid when it is nil" do
+        model.birthday_access_scope = nil
+        expect(model).to have(1).errors_on(:birthday_access_scope)
+      end
+    end
+
     {
       state_city: 255,
       street: 255,
