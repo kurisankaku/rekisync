@@ -12,6 +12,8 @@ class User < ApplicationRecord
   after_commit :send_reset_password_instructions, on: :update, if: :reset_password_instructions_require?
 
   has_many :third_party_access_tokens, dependent: :destroy
+  has_many :followings, foreign_key: :owner_id, class_name: Following.name, dependent: :destroy
+  has_many :followers, foreign_key: :user_id, class_name: Following.name, dependent: :destroy
   has_one :profile, dependent: :destroy
 
   PASSWORD_FORMAT = /\A(?=.*\d)(?=.*[a-zA-Z])/x

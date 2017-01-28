@@ -1,9 +1,13 @@
 require 'rails_helper'
 
 describe User do
+  include ErrorExamples
+
   it_behaves_like "logical deletion", :user
   it_behaves_like "dependent destroy", :user, :third_party_access_tokens
   it_behaves_like "dependent destroy", :user, :profile
+  it_behaves_like "dependent destroy", :user, :followings
+  it_behaves_like "dependent destroy", :user, :followers, :following
 
   describe "#validate" do
     let(:model) { build :user }

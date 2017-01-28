@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170122123338) do
+ActiveRecord::Schema.define(version: 20170128082115) do
 
   create_table "access_scopes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
     t.string "code", limit: 45, null: false
@@ -18,6 +18,17 @@ ActiveRecord::Schema.define(version: 20170122123338) do
 
   create_table "countries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
     t.string "code", limit: 45, null: false
+  end
+
+  create_table "followings", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
+    t.bigint   "owner_id",   null: false
+    t.bigint   "user_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_followings_on_deleted_at", using: :btree
+    t.index ["owner_id", "user_id"], name: "index_followings_on_owner_id_and_user_id", unique: true, using: :btree
+    t.index ["user_id"], name: "fk_rails_40463234d9", using: :btree
   end
 
   create_table "profiles", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
@@ -83,6 +94,8 @@ ActiveRecord::Schema.define(version: 20170122123338) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "followings", "users"
+  add_foreign_key "followings", "users", column: "owner_id"
   add_foreign_key "profiles", "access_scopes", column: "birthday_access_scope_id"
   add_foreign_key "third_party_access_tokens", "users"
 end
