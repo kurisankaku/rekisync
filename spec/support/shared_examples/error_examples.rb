@@ -22,13 +22,19 @@ module ErrorExamples
     end
   end
 
-  shared_examples "dependent destroy" do |model_symbol, dependents_model_symbol|
+  shared_examples "dependent destroy" do |model_symbol, dependents_model_symbol, dependent_model_factory_name|
     let!(:model) { create model_symbol }
-    let!(:dependents_model_name) { dependents_model_symbol.to_s.singularize }
-    let!(:dependents_model) { create dependents_model_name }
+    let!(:dependents_model_singular_name) { dependents_model_symbol.to_s.singularize }
+    let!(:dependents_model_name) { dependent_model_factory_name || dependents_model_singular_name }
 
     before do
-      if dependents_model_name != dependents_model_symbol.to_s
+      if dependent_model_factory_name.nil?
+        dependents_model = create dependents_model_singular_name
+      else
+        dependents_model = create dependent_model_factory_name
+      end
+
+      if dependents_model_singular_name != dependents_model_symbol.to_s
         model.send("#{dependents_model_symbol}=", [dependents_model])
       else
         model.send("#{dependents_model_symbol}=", dependents_model)
@@ -38,7 +44,7 @@ module ErrorExamples
 
     context "when #{model_symbol} deleted" do
       it "deletes #{dependents_model_symbol} at the same time." do
-        dependents_clazz = Module.const_get(dependents_model_name.camelize)
+        dependents_clazz = Module.const_get(dependents_model_name.to_s.camelize)
         expect { model.destroy }.to change(dependents_clazz, :count).by(-1)
       end
     end
