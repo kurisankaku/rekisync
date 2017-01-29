@@ -10,7 +10,7 @@ class ConfirmEmailController < ApplicationController
 
   def show
     @error = execute_action do
-      self.current_user = account_service.confirm_email(params[:id])
+      account_service.confirm_email(params[:id])
     end
     if @error.present?
       render :show, status: 400
