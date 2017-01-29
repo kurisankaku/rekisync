@@ -88,7 +88,7 @@ class User < ApplicationRecord
   # @return [User] user.
   def issue_reset_password_token!
     @reset_password_instructions_require = true
-    self.reset_password_token = SecureRandom.urlsafe_base64
+    self.reset_password_token = SecureRandom.uuid
     self.reset_password_sent_at = Time.zone.now
     self.tap(&:save!)
   end
