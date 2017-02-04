@@ -14,7 +14,7 @@ class BadRequestError < BaseError
   # Generate error hash of views format.
   def format_views_error
     code = @code.is_a?(Array) ? @code : [@code]
-    { @field => @code }
+    { @field => code }
   end
 
   # Generate error hash of api format.
