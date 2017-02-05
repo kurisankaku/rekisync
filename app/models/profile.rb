@@ -36,6 +36,8 @@ class Profile < ApplicationRecord
             length: { maximum: 1024 }
   validates :google_plus,
             length: { maximum: 1024 }
+  validates :about_me,
+            length: { maximum: 65535 }
 
   private
 

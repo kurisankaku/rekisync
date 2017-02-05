@@ -81,6 +81,7 @@ describe Profile do
     end
 
     {
+      about_me: 65535,
       state_city: 255,
       street: 255,
       website: 1024,
