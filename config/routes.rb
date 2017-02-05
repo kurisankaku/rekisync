@@ -20,6 +20,15 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :api do
+    namespace :v1 do
+      resources :users, only: [:index] do
+        resources :followings, only: [:index, :create, :destroy], module: :users
+        resources :followers, only: [:index], module: :users
+      end
+    end
+  end
+
   get "/auth/:provider/callback", to: "thirdparty/oauth#callback"
   post "/thirdparty/oauth", to: "thirdparty/oauth#create", as: "thirdparty_oauth"
 
