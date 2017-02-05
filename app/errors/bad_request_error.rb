@@ -24,7 +24,7 @@ class BadRequestError < BaseError
 
   class << self
     # Resource not found.
-    def resource_not_found(field = nil)
+    def resource_not_found(field)
       self.new(code: :resource_not_found, field: field)
     end
   end
