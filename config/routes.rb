@@ -33,4 +33,9 @@ Rails.application.routes.draw do
   require 'sidekiq/web'
   require 'admin_constraint'
   mount Sidekiq::Web => '/sidekiq', :constraints => AdminConstraint.new
+
+  resource ":name", controller: :users, only: [:show], as: "user" do
+    resources :followers, only: [:index]
+    resources :followings, only: [:index]
+  end
 end
