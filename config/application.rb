@@ -30,6 +30,9 @@ module Rekisync
     config.autoload_paths += %W(#{config.root}/app/controllers/api/concerns)
     config.autoload_paths += %W(#{config.root}/lib)
 
+    # Assets path.
+    config.assets.paths << Rails.root.join('node_modules')
+
     # Configure locale.
     config.i18n.available_locales = %i(ja en)
     config.i18n.default_locale = :ja
