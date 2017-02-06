@@ -28,8 +28,9 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, unless: "password.nil?"
   validates :name,
             presence: true,
-            format: { with: NAME_FORMAT },
-            length: { maximum: 128 }
+            format: { with: NAME_FORMAT }
+  validates :name, length: { minimum: 3, maximum: 128 }, if: "name.present?"
+  validate :reserved_word
   validates_uniqueness_of :name, conditions: -> { with_deleted }
   validates :email, presence: true
   validates :email, format: { with: EMAIL_FORMAT }, if: 'email.present?'
@@ -205,5 +206,9 @@ class User < ApplicationRecord
 
   def password_digest_presence
     self.errors.add(:password, :blank) if self.password_digest.blank? && self.third_party_access_tokens.blank?
+  end
+
+  def reserved_word
+    self.errors.add(:name, :reserved_word) if self.name.present? && ::ReservedWords::NAME.include?(self.name.downcase.singularize)
   end
 end
