@@ -20,7 +20,7 @@ module Thirdparty
     # Create account.
     def create
       @error = execute_action do
-        account_service.create(params, auth_hash: session[:auth_hash])
+        self.current_user = account_service.create(params, auth_hash: session[:auth_hash])
       end
 
       if @error.present?
