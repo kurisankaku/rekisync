@@ -57,6 +57,9 @@ gem 'carrierwave'
 # A ruby wrapper for ImageMagick or GraphicsMagick command line.
 gem 'mini_magick'
 
+# A Scope & Engine based, clean, powerful, customizable and sophisticated paginator for Ruby webapps
+gem 'kaminari'
+
 # FIXME When release version includes npm module, fetch from release, not master.
 gem 'sprockets', git: 'git@github.com:rails/sprockets.git', branch: 'master'
 
