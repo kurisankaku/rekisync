@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :users, only: [:index]
+
   namespace :settings do
     resource :account, only: [:show, :update, :destroy]
     resource :emails, only: [:show, :update]

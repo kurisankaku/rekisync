@@ -1,0 +1,11 @@
+<h1>User Top</h1>
+
+<h2>User list</h2>
+
+<% @users.each do |user| %>
+  <div>
+    <span><%= Profile.human_attribute_name :name %>: </span>
+    <span><%= user.name %></span>
+  </div>
+  <hr>
+<% end %>
