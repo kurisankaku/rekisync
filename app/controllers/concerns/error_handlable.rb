@@ -4,6 +4,7 @@ module ErrorHandlable
 
   included do
     rescue_from Exception, with: :server_error unless Rails.env.development?
+    rescue_from NotFoundPageError, with: :not_found_page_error
     rescue_from UnAuthorizedError, with: :unauthorized_error
   end
 
@@ -19,6 +20,12 @@ module ErrorHandlable
     logger.error build_log(e, 401).to_json
 
     redirect_to login_index_path, alert: :unauthorized
+  end
+
+  # Handle not found page error.
+  def not_found_page_error(e = nil)
+    logger.error build_log(e, 404).to_json
+    render file: Rails.root.join("public/404.html", status: 404, layout: false, content_type: "text/html")
   end
 
   # Execute action.
