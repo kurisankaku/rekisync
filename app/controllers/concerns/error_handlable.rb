@@ -12,7 +12,7 @@ module ErrorHandlable
   def server_error(e = nil)
     logger.fatal build_log(e, 500).to_json
 
-    render file: Rails.root.join("public/500.html", status: 500, layout: false, content_type: "text/html")
+    render file: Rails.root.join("public/500.html"), status: 500, layout: false, content_type: "text/html"
   end
 
   # Handle unauthorized error.
@@ -25,7 +25,7 @@ module ErrorHandlable
   # Handle not found page error.
   def not_found_page_error(e = nil)
     logger.error build_log(e, 404).to_json
-    render file: Rails.root.join("public/404.html", status: 404, layout: false, content_type: "text/html")
+    render file: Rails.root.join("public/404.html"), status: 404, layout: false, content_type: "text/html"
   end
 
   # Execute action.
