@@ -1,6 +1,6 @@
-# User controller.
-class UserController < ApplicationController
-  # Show user page.
+# Owner controller.
+class OwnerController < ApplicationController
+  # Show owner page.
   def show
     begin
       @user = UserService.new.find_by_name(params[:name])
