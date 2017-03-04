@@ -59,6 +59,8 @@ gem 'mini_magick'
 
 # A Scope & Engine based, clean, powerful, customizable and sophisticated paginator for Ruby webapps
 gem 'kaminari'
+# Draper adds an object-oriented layer of presentation logic to your Rails application.
+gem 'draper', '3.0.0.pre1'
 
 # FIXME When release version includes npm module, fetch from release, not master.
 gem 'sprockets', git: 'git@github.com:rails/sprockets.git', branch: 'master'
