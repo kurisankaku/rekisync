@@ -15,7 +15,7 @@ describe AccountStrategies::ThirdParty do
     end
     let!(:uid) { "1234" }
     let!(:email) { "test@test.test.com" }
-    let!(:name) { "test" }
+    let!(:name) { "testee" }
     let!(:attrs) do
       { name: name,
         email: email }

@@ -8,7 +8,7 @@ describe AccountStrategies::Origin do
     let!(:params) { ActionController::Parameters.new(attrs) }
     let!(:option) { {} }
     let!(:email) { "test@test.test.com" }
-    let!(:name) { "test" }
+    let!(:name) { "testee" }
     let!(:attrs) do
       { name: name,
         email: email,
@@ -116,7 +116,7 @@ describe AccountStrategies::Origin do
                   failed_attempts: 4
     }
     let!(:email) { "test@test.test.com" }
-    let!(:name) { "test" }
+    let!(:name) { "testee" }
     let!(:password) { "Abcd1234/" }
     let!(:current_sign_in_at) { Time.local(2015, 12, 30) }
     let!(:last_sign_in_at) { Time.local(2015, 12, 29) }

@@ -147,7 +147,7 @@ describe User do
     context "call #skip_confirmation!" do
       context "on create" do
         it "doesn't generate token" do
-          user = User.new(name: "test", email: "email@test.test.com", password: "Abcd1234/", password_confirmation: "Abcd1234/")
+          user = User.new(name: "testee", email: "email@test.test.com", password: "Abcd1234/", password_confirmation: "Abcd1234/")
           user.skip_confirmation!
           user.save!
           expect(user.confirmation_token).to be_nil
@@ -168,7 +168,7 @@ describe User do
       before { Timecop.freeze(Time.local(2016, 1, 1)) }
       context "on create" do
         it "generate token" do
-          user = User.new(name: "test", email: "email@test.test.com", password: "Abcd1234/", password_confirmation: "Abcd1234/")
+          user = User.new(name: "testee", email: "email@test.test.com", password: "Abcd1234/", password_confirmation: "Abcd1234/")
           user.save!
           expect(user.confirmation_token).to be_present
           expect(user.confirmation_sent_at).to eq Time.local(2016, 1, 1)
@@ -192,7 +192,7 @@ describe User do
       context "on create" do
         it "doesn't send confirmation mail" do
           expect(ConfirmationMailer).not_to receive(:confirmation_instructions)
-          user = User.new(name: "test", email: "email@test.test.com", password: "Abcd1234/", password_confirmation: "Abcd1234/")
+          user = User.new(name: "testee", email: "email@test.test.com", password: "Abcd1234/", password_confirmation: "Abcd1234/")
           user.skip_confirmation!
           user.save!
           expect(user.confirmed_at).to eq Time.local(2016, 1, 1)
@@ -228,7 +228,7 @@ describe User do
             expect(ConfirmationMailer).not_to receive(:confirmation_instructions)
             begin
               ActiveRecord::Base.transaction do
-                user = User.new(name: "test", email: "email@test.test.com", password: "Abcd1234/", password_confirmation: "Abcd1234/")
+                user = User.new(name: "testee", email: "email@test.test.com", password: "Abcd1234/", password_confirmation: "Abcd1234/")
                 user.save!
                 raise ActiveRecord::Rollback
               end

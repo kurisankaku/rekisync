@@ -75,7 +75,7 @@ describe AccountService do
                   password_confirmation: password
     }
     let!(:email) { "test@test.test.com" }
-    let!(:name) { "test" }
+    let!(:name) { "testee" }
     let!(:password) { "Abcd1234/" }
     let!(:attrs) do
       {
@@ -109,7 +109,7 @@ describe AccountService do
                   password_confirmation: password
     }
     let!(:email) { "test@test.test.com" }
-    let!(:name) { "test" }
+    let!(:name) { "testee" }
     let!(:password) { "Abcd1234/" }
     let!(:attrs) do
       {
@@ -146,7 +146,7 @@ describe AccountService do
                   password_confirmation: password
     }
     let!(:email) { "test@test.test.com" }
-    let!(:name) { "test" }
+    let!(:name) { "testee" }
     let!(:password) { "Abcd1234/" }
     let!(:attrs) do
       {
@@ -188,7 +188,7 @@ describe AccountService do
                   reset_password_sent_at: Time.zone.now
     }
     let!(:email) { "test@test.test.com" }
-    let!(:name) { "test" }
+    let!(:name) { "testee" }
     let!(:password) { "Abcd1234/" }
     let!(:attrs) do
       {
