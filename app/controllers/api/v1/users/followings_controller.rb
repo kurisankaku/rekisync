@@ -14,7 +14,7 @@ module Api
         # Create a following user.
         def create
           execute_action do
-            followed_user = UserService.new.find(params[:id])
+            followed_user = UserService.new.find_by_name(params[:name])
             following = FollowService.new.follow_user(self.current_user, followed_user)
             render json: following
           end
@@ -23,7 +23,7 @@ module Api
         # Destroy a following user.
         def destroy
           execute_action do
-            unfollowed_user = UserService.new.find(params[:id])
+            unfollowed_user = UserService.new.find_by_name(params[:name])
             FollowService.new.unfollow_user(self.current_user, unfollowed_user)
             head :no_content
           end

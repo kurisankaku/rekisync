@@ -1,3 +1,6 @@
+<% content_for :js do %>
+  <%= javascript_include_tag "controllers/users_controller" %>
+<% end %>
 <h1>User Top</h1>
 
 <h2>User list</h2>
@@ -7,5 +10,9 @@
     <span><%= Profile.human_attribute_name :name %>: </span>
     <span><%= user.name %></span>
   </div>
+  <div>
+    <button onclick=""></button>
+  </div>
   <hr>
 <% end %>
+<%= paginate @users %>
