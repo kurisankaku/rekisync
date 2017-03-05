@@ -356,7 +356,7 @@ describe User do
           user.confirm!
           fail
         rescue ActiveRecord::RecordInvalid => e
-          expect(e.record.errors.details[:confirmed_at]).to include(error: :already_confirmed)
+          expect(e.record.errors.details[:confirmed_at]).to include(error: "already_confirmed")
         end
       end
     end
@@ -368,7 +368,7 @@ describe User do
           user.confirm!
           fail
         rescue ActiveRecord::RecordInvalid => e
-          expect(e.record.errors.details[:confirmation_token]).to include(error: :expired)
+          expect(e.record.errors.details[:confirmation_token]).to include(error: "expired")
         end
       end
     end
@@ -462,7 +462,7 @@ describe User do
           user.reset_password!("Password1234/", "Password1234/")
           fail
         rescue ActiveRecord::RecordInvalid => e
-          expect(e.record.errors.details[:reset_password_token]).to include(error: :expired)
+          expect(e.record.errors.details[:reset_password_token]).to include(error: "expired")
         end
       end
     end

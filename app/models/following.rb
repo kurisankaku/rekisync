@@ -14,6 +14,6 @@ class Following < ApplicationRecord
 
   # Do not insert same value as owner_id in user_id.
   def not_eq_owner_and_user
-    self.errors.add(:user, :not_eq_owner_and_user) if self.owner_id == self.user_id
+    self.errors.add(:user, "not_eq_owner_and_user") if self.owner_id == self.user_id
   end
 end

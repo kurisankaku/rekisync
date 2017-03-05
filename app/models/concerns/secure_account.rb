@@ -39,13 +39,13 @@ module SecureAccount
   def confirm!
     if confirmed? && unconfirmed_email.blank?
       self.validate
-      self.errors.add(:confirmed_at, :already_confirmed)
+      self.errors.add(:confirmed_at, "already_confirmed")
       fail ActiveRecord::RecordInvalid.new(self)
     end
 
     if self.confirmation_sent_at + TOKEN_LIFE_TIME < Time.zone.now
       self.validate
-      self.errors.add(:confirmation_token, :expired)
+      self.errors.add(:confirmation_token, "expired")
       fail ActiveRecord::RecordInvalid.new(self)
     end
     @skip_confirmation_notification = true
@@ -80,7 +80,7 @@ module SecureAccount
 
     if self.reset_password_sent_at.present? && self.reset_password_sent_at + TOKEN_LIFE_TIME < Time.zone.now
       self.validate
-      self.errors.add(:reset_password_token, :expired)
+      self.errors.add(:reset_password_token, "expired")
       fail ActiveRecord::RecordInvalid.new(self)
     end
 

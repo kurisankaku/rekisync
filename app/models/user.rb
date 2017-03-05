@@ -35,10 +35,10 @@ class User < ApplicationRecord
   private
 
   def password_digest_presence
-    self.errors.add(:password, :blank) if self.password_digest.blank? && self.third_party_access_tokens.blank?
+    self.errors.add(:password, "blank") if self.password_digest.blank? && self.third_party_access_tokens.blank?
   end
 
   def reserved_word
-    self.errors.add(:name, :reserved_word) if self.name.present? && ::ReservedWords::NAME.include?(self.name.downcase.singularize)
+    self.errors.add(:name, "reserved_word") if self.name.present? && ::ReservedWords::NAME.include?(self.name.downcase.singularize)
   end
 end

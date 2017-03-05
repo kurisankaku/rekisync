@@ -93,7 +93,7 @@ describe AccountStrategies::Origin do
               subject
               fail
             rescue ActiveRecord::RecordInvalid => e
-              expect(e.record.errors.details[:password]).to include(error: :blank)
+              expect(e.record.errors.details[:password]).to include(error: "blank")
             end
           end
         end
