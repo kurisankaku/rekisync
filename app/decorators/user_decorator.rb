@@ -22,4 +22,17 @@ class UserDecorator < Draper::Decorator
 
     context[:following_user_ids].include?(object.id)
   end
+
+  # Return follow or unfollow text by user state.
+  #
+  # @return [string] follow or unfollow.
+  def is_following_text
+    return I18n.t("common.follow") if context[:following_user_ids].blank?
+
+    if context[:following_user_ids].include?(object.id)
+      I18n.t("common.unfollow")
+    else
+      I18n.t("common.follow")
+    end
+  end
 end
