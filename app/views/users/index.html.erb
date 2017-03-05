@@ -11,7 +11,7 @@
     <span><%= user.name %></span>
   </div>
   <div>
-    <button onclick=""></button>
+    <button onclick="followUser(this, '<%= user.name %>', <%= user.is_following? %>)"><%= user.is_following_text %></button>
   </div>
   <hr>
 <% end %>
