@@ -9,8 +9,9 @@ class FollowingSerializer < ActiveModel::Serializer
 
     class ProfileSerializer < ActiveModel::Serializer
       attribute :name
-      attribute :avator_image_url
+      attribute :avator_image_url do
         object.avator_image.try(:url)
+      end
       attribute :background_image_url do
         object.background_image.try(:url)
       end
