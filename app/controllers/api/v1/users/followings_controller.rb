@@ -23,7 +23,7 @@ module Api
         # Destroy a following user.
         def destroy
           execute_action do
-            unfollowed_user = UserService.new.find_by_name(params[:name])
+            unfollowed_user = UserService.new.find(params[:id])
             FollowService.new.unfollow_user(self.current_user, unfollowed_user)
             head :no_content
           end
