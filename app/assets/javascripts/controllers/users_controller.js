@@ -4,17 +4,21 @@ var request = window.superagent;
 function followUser(element, name, isFollow) {
   if ((userFollows[name] && userFollows[name].isFollow) || isFollow) {
     userFollows[name] = false;
+    element.innerHTML = "フォロー";
     unfollowingUser(name)
       .then()
       .catch(function(err) {
         userFollows[name] = true;
+        element.innerHTML = "アンフォロー";
       });
   } else {
     userFollows[name] = true;
+    element.innerHTML = "アンフォロー";
     followingUser(name)
       .then()
       .catch(function(err) {
         userFollows[name] = false;
+        element.innerHTML = "フォロー";
       });
   }
 }
