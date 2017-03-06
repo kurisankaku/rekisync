@@ -1,11 +1,11 @@
 var userFollows = {};
 var request = window.superagent;
 
-function followUser(element, name, isFollow) {
-  if ((userFollows[name] && userFollows[name].isFollow) || isFollow) {
+function followUser(element, id, name, isFollow) {
+  if (userFollows[name] || (userFollows[name] == null && isFollow)) {
     userFollows[name] = false;
     element.innerHTML = "フォロー";
-    unfollowingUser(name)
+    unfollowingUser(id)
       .then()
       .catch(function(err) {
         userFollows[name] = true;
@@ -40,10 +40,10 @@ function followingUser(name) {
     });
 }
 
-function unfollowingUser(name) {
+function unfollowingUser(id) {
   return new Promise(
     function (resolve, reject) {
-      request.del('/api/v1/users/followings')
+      request.del('/api/v1/users/followings/' + id)
         .type('json')
         .end(function(err, res) {
           if (err || !res.ok) {
