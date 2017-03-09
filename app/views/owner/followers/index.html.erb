@@ -6,10 +6,10 @@
 <% @follows.each do |follow| %>
   <div>
     <span><%= Profile.human_attribute_name :name %>: </span>
-    <span><%= follow.user.name %></span>
+    <span><%= follow.owner.name %></span>
   </div>
   <div>
-    <button onclick="followUser(this, '<%= follow.user.id %>', '<%= follow.user.name %>', <%= follow.user.is_following? %>)"><%= follow.user.is_following_text %></button>
+    <button onclick="followUser(this, '<%= follow.owner.id %>', '<%= follow.owner.name %>', <%= follow.owner.is_following? %>)"><%= follow.owner.is_following_text %></button>
   </div>
   <hr>
 <% end %>
