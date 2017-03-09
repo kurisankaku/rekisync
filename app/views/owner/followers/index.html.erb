@@ -1,0 +1,18 @@
+<% content_for :js do %>
+  <%= javascript_include_tag "controllers/users_controller" %>
+<% end %>
+<h1>Follower User</h1>
+
+<% @follows.each do |follow| %>
+  <div>
+    <span><%= Profile.human_attribute_name :name %>: </span>
+    <span><%= follow.user.name %></span>
+  </div>
+  <div>
+    <button onclick="followUser(this, '<%= follow.user.id %>', '<%= follow.user.name %>', <%= follow.user.is_following? %>)"><%= follow.user.is_following_text %></button>
+  </div>
+  <hr>
+<% end %>
+<%= paginate @follows %>
+<hr>
+<a href="#" onclick="javascript:window.history.back(-1);return false;">Back</a>
