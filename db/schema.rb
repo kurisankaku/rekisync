@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170311050137) do
+ActiveRecord::Schema.define(version: 20170128082115) do
 
   create_table "access_scopes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
     t.string "code", limit: 45, null: false
@@ -29,35 +29,6 @@ ActiveRecord::Schema.define(version: 20170311050137) do
     t.index ["deleted_at"], name: "index_followings_on_deleted_at", using: :btree
     t.index ["owner_id", "user_id"], name: "index_followings_on_owner_id_and_user_id", unique: true, using: :btree
     t.index ["user_id"], name: "fk_rails_40463234d9", using: :btree
-  end
-
-  create_table "item_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
-    t.string   "code",       null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
-  end
-
-  create_table "items", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
-    t.integer  "item_type_id",                                       null: false
-    t.string   "name",                                               null: false
-    t.string   "description",  limit: 1024
-    t.integer  "country_id"
-    t.string   "state_city"
-    t.string   "street"
-    t.decimal  "latitude",                  precision: 11, scale: 8
-    t.decimal  "longitude",                 precision: 11, scale: 8
-    t.bigint   "from_at"
-    t.bigint   "to_at"
-    t.bigint   "created_by"
-    t.bigint   "updated_by"
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
-    t.datetime "deleted_at"
-    t.index ["country_id"], name: "index_items_on_country_id", using: :btree
-    t.index ["created_by"], name: "index_items_on_created_by", using: :btree
-    t.index ["item_type_id"], name: "index_items_on_item_type_id", using: :btree
-    t.index ["updated_by"], name: "index_items_on_updated_by", using: :btree
   end
 
   create_table "profiles", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
@@ -125,10 +96,6 @@ ActiveRecord::Schema.define(version: 20170311050137) do
 
   add_foreign_key "followings", "users"
   add_foreign_key "followings", "users", column: "owner_id"
-  add_foreign_key "items", "countries"
-  add_foreign_key "items", "item_types"
-  add_foreign_key "items", "users", column: "created_by"
-  add_foreign_key "items", "users", column: "updated_by"
   add_foreign_key "profiles", "access_scopes", column: "birthday_access_scope_id"
   add_foreign_key "third_party_access_tokens", "users"
 end
