@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(version: 20170326070811) do
     t.datetime "updated_at",                    null: false
     t.index ["large_category_id"], name: "index_history_categories_on_large_category_id", using: :btree
     t.index ["middle_category_id"], name: "index_history_categories_on_middle_category_id", using: :btree
+    t.index ["name", "large_category_id", "middle_category_id"], name: "index_hc_name_large_middle_category_id", unique: true, using: :btree
+    t.index ["name", "large_category_id"], name: "index_hc_name_large_category_id", unique: true, using: :btree
   end
 
   create_table "profiles", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
