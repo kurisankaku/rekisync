@@ -106,6 +106,8 @@ ActiveRecord::Schema.define(version: 20170326070811) do
 
   add_foreign_key "followings", "users"
   add_foreign_key "followings", "users", column: "owner_id"
+  add_foreign_key "history_categories", "history_categories", column: "large_category_id"
+  add_foreign_key "history_categories", "history_categories", column: "middle_category_id"
   add_foreign_key "profiles", "access_scopes", column: "birthday_access_scope_id"
   add_foreign_key "third_party_access_tokens", "users"
 end

@@ -9,5 +9,7 @@ class CreateHistoryCategories < ActiveRecord::Migration[5.0]
 
     add_index :history_categories, :large_category_id
     add_index :history_categories, :middle_category_id
+    add_foreign_key :history_categories, :history_categories, column: :large_category_id
+    add_foreign_key :history_categories, :history_categories, column: :middle_category_id
   end
 end
