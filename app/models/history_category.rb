@@ -22,7 +22,32 @@ class HistoryCategory < ApplicationRecord
   #
   # @return [ActiveRecord::Relation] history categories.
   def middle_categories
-    HistoryCategory.where(large_category: self.id).where(middle_category_id: nil)
+    HistoryCategory.where(large_category: self).where(middle_category: nil)
+  end
+
+  # Fetch small categories
+  #
+  # @return [ActiveRecord::Relation] history categories.
+  def small_categories
+    if large_category?
+      HistoryCategory.where(large_category: self).where.not(middle_category: nil)
+    else
+      HistoryCategory.where(middle_category: self)
+    end
+  end
+
+  # Check if the category type is large.
+  #
+  # @return [bool] true: large type.
+  def large_category?
+    self.large_category.nil? && self.middle_category.nil?
+  end
+
+  # Check if the category type is middle.
+  #
+  # @return [bool] true: middle type.
+  def middle_category?
+    self.large_category.present? && self.middle_category.nil?
   end
 
   private

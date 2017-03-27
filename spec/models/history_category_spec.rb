@@ -168,4 +168,95 @@ describe HistoryCategory do
       end
     end
   end
+
+  describe "#middle_categories" do
+    let!(:large_category1) { create :history_category, name: :test1 }
+    let!(:large_category2) { create :history_category, name: :test2 }
+    let!(:middle_category1) do
+      create :history_category,
+             name: :m_test1,
+             large_category: large_category1
+    end
+    let!(:middle_category2) do
+      create :history_category,
+             name: :m_test22,
+             large_category: large_category1
+    end
+    let!(:small_category1) do
+      create :history_category,
+             name: :s_test1,
+             large_category: large_category1,
+             middle_category: middle_category1
+    end
+    it { expect(large_category1.middle_categories.count).to  eq 2 }
+    it { expect(middle_category1.middle_categories.count).to  eq 0 }
+    it { expect(small_category1.middle_categories.count).to  eq 0 }
+  end
+
+  describe "#small_categories" do
+    let!(:large_category1) { create :history_category, name: :test1 }
+    let!(:large_category2) { create :history_category, name: :test2 }
+    let!(:middle_category1) do
+      create :history_category,
+             name: :m_test1,
+             large_category: large_category1
+    end
+    let!(:middle_category2) do
+      create :history_category,
+             name: :m_test22,
+             large_category: large_category1
+    end
+    let!(:small_category1) do
+      create :history_category,
+             name: :s_test1,
+             large_category: large_category1,
+             middle_category: middle_category1
+    end
+    let!(:small_category2) do
+      create :history_category,
+             name: :s_test2,
+             large_category: large_category1,
+             middle_category: middle_category2
+    end
+    it { expect(large_category1.small_categories.count).to  eq 2 }
+    it { expect(middle_category1.small_categories.count).to  eq 1 }
+    it { expect(middle_category2.small_categories.count).to  eq 1 }
+    it { expect(small_category1.small_categories.count).to  eq 0 }
+  end
+
+  describe "#large_category?" do
+    let!(:large_category1) { create :history_category, name: :test1 }
+    let!(:middle_category1) do
+      create :history_category,
+             name: :m_test1,
+             large_category: large_category1
+    end
+    let!(:small_category1) do
+      create :history_category,
+             name: :s_test1,
+             large_category: large_category1,
+             middle_category: middle_category1
+    end
+    it { expect(large_category1.large_category?).to be true }
+    it { expect(middle_category1.large_category?).to be false }
+    it { expect(small_category1.large_category?).to be false }
+  end
+
+  describe "#middle_category?" do
+    let!(:large_category1) { create :history_category, name: :test1 }
+    let!(:middle_category1) do
+      create :history_category,
+             name: :m_test1,
+             large_category: large_category1
+    end
+    let!(:small_category1) do
+      create :history_category,
+             name: :s_test1,
+             large_category: large_category1,
+             middle_category: middle_category1
+    end
+    it { expect(large_category1.middle_category?).to be false }
+    it { expect(middle_category1.middle_category?).to be true }
+    it { expect(small_category1.middle_category?).to be false }
+  end
 end
