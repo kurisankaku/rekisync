@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170326070811) do
+ActiveRecord::Schema.define(version: 20170128082115) do
 
   create_table "access_scopes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
     t.string "code", limit: 45, null: false
@@ -29,18 +29,6 @@ ActiveRecord::Schema.define(version: 20170326070811) do
     t.index ["deleted_at"], name: "index_followings_on_deleted_at", using: :btree
     t.index ["owner_id", "user_id"], name: "index_followings_on_owner_id_and_user_id", unique: true, using: :btree
     t.index ["user_id"], name: "fk_rails_40463234d9", using: :btree
-  end
-
-  create_table "history_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
-    t.string   "name",               limit: 64, null: false
-    t.integer  "large_category_id"
-    t.integer  "middle_category_id"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.index ["large_category_id"], name: "index_history_categories_on_large_category_id", using: :btree
-    t.index ["middle_category_id"], name: "index_history_categories_on_middle_category_id", using: :btree
-    t.index ["name", "large_category_id", "middle_category_id"], name: "index_hc_name_large_middle_category_id", unique: true, using: :btree
-    t.index ["name", "large_category_id"], name: "index_hc_name_large_category_id", unique: true, using: :btree
   end
 
   create_table "profiles", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
@@ -108,8 +96,6 @@ ActiveRecord::Schema.define(version: 20170326070811) do
 
   add_foreign_key "followings", "users"
   add_foreign_key "followings", "users", column: "owner_id"
-  add_foreign_key "history_categories", "history_categories", column: "large_category_id"
-  add_foreign_key "history_categories", "history_categories", column: "middle_category_id"
   add_foreign_key "profiles", "access_scopes", column: "birthday_access_scope_id"
   add_foreign_key "third_party_access_tokens", "users"
 end
