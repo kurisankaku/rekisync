@@ -57,12 +57,12 @@ ActiveRecord::Schema.define(version: 20170515142616) do
   end
 
   create_table "tags", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
-    t.string   "code",       limit: 64, null: false
+    t.string   "name",       limit: 64, null: false
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
     t.datetime "deleted_at"
-    t.index ["code"], name: "index_tags_on_code", unique: true, using: :btree
     t.index ["deleted_at"], name: "index_tags_on_deleted_at", using: :btree
+    t.index ["name"], name: "index_tags_on_name", unique: true, using: :btree
   end
 
   create_table "third_party_access_tokens", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
