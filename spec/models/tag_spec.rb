@@ -1,15 +1,10 @@
 require "rails_helper"
 
 describe Tag do
-  include ErrorExamples
-
-  it_behaves_like "logical deletion", :tag
-
   describe "#validate" do
     let(:model) { build :tag }
     context "name" do
       let!(:tag) { create :tag, name: "aaa" }
-      let!(:deleted_tag) { create :tag, name: "bbb", deleted_at: Time.local(2015, 12, 31) }
 
       before { Timecop.freeze(Time.local(2016, 1, 1)) }
 
@@ -35,11 +30,6 @@ describe Tag do
 
       it "is invalid when it is not unique" do
         model.name = tag.name
-        expect(model).to have(1).errors_on(:name)
-      end
-
-      it "is invalid when it is not unique includes deleted item" do
-        model.name = deleted_tag.name
         expect(model).to have(1).errors_on(:name)
       end
     end
