@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170128082115) do
+ActiveRecord::Schema.define(version: 20170515142616) do
 
   create_table "access_scopes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
     t.string "code", limit: 45, null: false
@@ -54,6 +54,15 @@ ActiveRecord::Schema.define(version: 20170128082115) do
     t.index ["birthday_access_scope_id"], name: "index_profiles_on_birthday_access_scope_id", using: :btree
     t.index ["deleted_at"], name: "index_profiles_on_deleted_at", using: :btree
     t.index ["user_id"], name: "index_profiles_on_user_id", unique: true, using: :btree
+  end
+
+  create_table "tags", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
+    t.string   "code",       limit: 64, null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.datetime "deleted_at"
+    t.index ["code"], name: "index_tags_on_code", unique: true, using: :btree
+    t.index ["deleted_at"], name: "index_tags_on_deleted_at", using: :btree
   end
 
   create_table "third_party_access_tokens", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
