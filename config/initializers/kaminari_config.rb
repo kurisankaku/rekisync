@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 Kaminari.configure do |config|
+  if Rails.env.test?
+    config.default_per_page = 2
+  end
   # config.default_per_page = 25
   # config.max_per_page = nil
   # config.window = 4
