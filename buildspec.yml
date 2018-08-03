@@ -8,9 +8,6 @@ phases:
   install:
     commands:
       - echo Entered the install phase...
-      - ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-      - apt-get update -y
-      - apt-get install -y ruby
       - gem install bundler
       - bundle install --path vendor/bundle
     finally:
