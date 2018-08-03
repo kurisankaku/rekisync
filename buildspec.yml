@@ -21,7 +21,7 @@ phases:
     commands:
       - echo Entered the build phase...
       - echo Build started on `date`
-      - RAILS_ENV=test bundle exec rails db:migrate
+      - RAILS_ENV=test bundle exec rails db:migrate db:seed db:seed_fu
       - RAILS_ENV=test bundle exec rspec
     finally:
       - echo This always runs even if the install command fails
