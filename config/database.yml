@@ -19,14 +19,11 @@ default: &default
   password: root
 
 development:
-  # <<: *default
-  # database: rekisync_development
-  # username: rekisync
-  # password: rekisync
-  # host: 127.0.0.1
-  adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  database: db/west.sqlite3
+  <<: *default
+  database: rekisync_development
+  username: rekisync
+  password: rekisync
+  host: 127.0.0.1
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
