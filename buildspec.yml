@@ -9,7 +9,7 @@ phases:
     commands:
       - echo Entered the install phase...
       - gem install bundler
-      - bundle install --path vendor/bundle
+      - bundle install --path /root/vendor/bundle
     finally:
       - echo This always runs even if the update or install command fails
   pre_build:
@@ -36,6 +36,6 @@ artifacts:
   files:
     - ./*
   discard-paths: yes
-# cache:
-#   paths:
-#     - '/root/.m2/**/*'
+cache:
+  paths:
+    - '/root/vendor/**/*'
