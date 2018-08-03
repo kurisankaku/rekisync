@@ -12,15 +12,15 @@
 
 ActiveRecord::Schema.define(version: 20170515142616) do
 
-  create_table "access_scopes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
+  create_table "access_scopes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string "code", limit: 45, null: false
   end
 
-  create_table "countries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
+  create_table "countries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string "code", limit: 45, null: false
   end
 
-  create_table "followings", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
+  create_table "followings", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.bigint   "owner_id",   null: false
     t.bigint   "user_id",    null: false
     t.datetime "created_at", null: false
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20170515142616) do
     t.index ["user_id"], name: "fk_rails_40463234d9", using: :btree
   end
 
-  create_table "profiles", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
+  create_table "profiles", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.bigint   "user_id",                                null: false
     t.string   "name",                     limit: 128,   null: false
     t.text     "about_me",                 limit: 65535
@@ -56,14 +56,14 @@ ActiveRecord::Schema.define(version: 20170515142616) do
     t.index ["user_id"], name: "index_profiles_on_user_id", unique: true, using: :btree
   end
 
-  create_table "tags", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
+  create_table "tags", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string   "name",       limit: 64, null: false
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
     t.index ["name"], name: "index_tags_on_name", unique: true, using: :btree
   end
 
-  create_table "third_party_access_tokens", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
+  create_table "third_party_access_tokens", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.bigint   "user_id",                  null: false
     t.string   "uid",                      null: false
     t.string   "provider",      limit: 32, null: false
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 20170515142616) do
     t.index ["user_id"], name: "index_third_party_access_tokens_on_user_id", using: :btree
   end
 
-  create_table "users", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC" do |t|
+  create_table "users", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
     t.string   "name",                   limit: 128,              null: false
     t.string   "email",                              default: "", null: false
     t.string   "password_digest"
