@@ -1,38 +1,42 @@
 version: 0.2
 
-env:
-  parameter-store:
-    LOGIN_PASSWORD: "dockerLoginPassword"
-
+# env:
+#   parameter-store:
+#     LOGIN_PASSWORD: "dockerLoginPassword"
+#
 phases:
   install:
     commands:
       - echo Entered the install phase...
       - apt-get update -y
-      - apt-get install -y maven
+      - apt-get install -y ruby
+      - gem install bundler
+      - bundle install --path vendor/bundle
     finally:
-      - echo This always runs even if the update or install command fails 
+      - echo This always runs even if the update or install command fails
   pre_build:
     commands:
       - echo Entered the pre_build phase...
-      - docker login –u User –p $LOGIN_PASSWORD
     finally:
-      - echo This always runs even if the login command fails 
+      - echo This always runs even if the login command fails
   build:
     commands:
       - echo Entered the build phase...
       - echo Build started on `date`
-      - mvn install
+      - bundle exec rspec RAILS_ENV=test
     finally:
       - echo This always runs even if the install command fails
   post_build:
     commands:
       - echo Entered the post_build phase...
       - echo Build completed on `date`
+      - rm -rf vendor
+      - rm -rf log
+      - rm -rf tmp
 artifacts:
   files:
-    - target/messageUtil-1.0.jar
+    - **/*
   discard-paths: yes
-cache:
-  paths:
-    - '/root/.m2/**/*'
+# cache:
+#   paths:
+#     - '/root/.m2/**/*'
