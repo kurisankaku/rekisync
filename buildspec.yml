@@ -34,7 +34,7 @@ phases:
       - rm -rf tmp
 artifacts:
   files:
-    - ./**
+    - ./*
   discard-paths: yes
 cache:
   paths:
