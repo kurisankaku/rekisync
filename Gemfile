@@ -78,7 +78,8 @@ group :development, :test do
   # Test framework.
   gem 'rspec-rails', '~> 3.5'
   gem 'rspec-collection_matchers'
-  gem 'factory_girl_rails'
+  gem 'factory_bot'
+  gem 'factory_bot_rails'
 end
 
 group :development do
@@ -102,6 +103,7 @@ group :test do
   gem 'json_expressions'
   gem 'timecop'
   gem 'webmock'
+  gem 'sqlite3'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

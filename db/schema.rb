@@ -12,30 +12,30 @@
 
 ActiveRecord::Schema.define(version: 20170515142616) do
 
-  create_table "access_scopes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
+  create_table "access_scopes", force: :cascade do |t|
     t.string "code", limit: 45, null: false
   end
 
-  create_table "countries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
+  create_table "countries", force: :cascade do |t|
     t.string "code", limit: 45, null: false
   end
 
-  create_table "followings", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
-    t.bigint   "owner_id",   null: false
-    t.bigint   "user_id",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "followings", force: :cascade do |t|
+    t.integer  "owner_id",   limit: 8, null: false
+    t.integer  "user_id",    limit: 8, null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.datetime "deleted_at"
-    t.index ["deleted_at"], name: "index_followings_on_deleted_at", using: :btree
-    t.index ["owner_id", "user_id"], name: "index_followings_on_owner_id_and_user_id", unique: true, using: :btree
-    t.index ["user_id"], name: "fk_rails_40463234d9", using: :btree
+    t.index ["deleted_at"], name: "index_followings_on_deleted_at"
+    t.index ["owner_id", "user_id"], name: "index_followings_on_owner_id_and_user_id", unique: true
   end
 
-  create_table "profiles", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
-    t.bigint   "user_id",                                null: false
-    t.string   "name",                     limit: 128,   null: false
-    t.text     "about_me",                 limit: 65535
-    t.string   "img_dir_prefix",           limit: 8,     null: false
+  create_table "profiles", force: :cascade do |t|
+    t.integer  "user_id",                  limit: 8,    null: false
+    t.string   "name",                     limit: 128,  null: false
+    t.text     "about_me"
+    t.integer  "birthday_access_scope_id",              null: false
+    t.string   "img_dir_prefix",           limit: 8,    null: false
     t.string   "avator_image"
     t.string   "background_image"
     t.datetime "birthday"
@@ -47,24 +47,23 @@ ActiveRecord::Schema.define(version: 20170515142616) do
     t.string   "facebook",                 limit: 1024
     t.string   "twitter",                  limit: 1024
     t.integer  "lock_version"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.datetime "deleted_at"
-    t.integer  "birthday_access_scope_id",               null: false
-    t.index ["birthday_access_scope_id"], name: "index_profiles_on_birthday_access_scope_id", using: :btree
-    t.index ["deleted_at"], name: "index_profiles_on_deleted_at", using: :btree
-    t.index ["user_id"], name: "index_profiles_on_user_id", unique: true, using: :btree
+    t.index ["birthday_access_scope_id"], name: "index_profiles_on_birthday_access_scope_id"
+    t.index ["deleted_at"], name: "index_profiles_on_deleted_at"
+    t.index ["user_id"], name: "index_profiles_on_user_id", unique: true
   end
 
-  create_table "tags", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
+  create_table "tags", force: :cascade do |t|
     t.string   "name",       limit: 64, null: false
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
-    t.index ["name"], name: "index_tags_on_name", unique: true, using: :btree
+    t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
-  create_table "third_party_access_tokens", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
-    t.bigint   "user_id",                  null: false
+  create_table "third_party_access_tokens", force: :cascade do |t|
+    t.integer  "user_id",       limit: 8,  null: false
     t.string   "uid",                      null: false
     t.string   "provider",      limit: 32, null: false
     t.string   "token",                    null: false
@@ -73,10 +72,10 @@ ActiveRecord::Schema.define(version: 20170515142616) do
     t.datetime "revoked_at"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
-    t.index ["user_id"], name: "index_third_party_access_tokens_on_user_id", using: :btree
+    t.index ["user_id"], name: "index_third_party_access_tokens_on_user_id"
   end
 
-  create_table "users", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC" do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "name",                   limit: 128,              null: false
     t.string   "email",                              default: "", null: false
     t.string   "password_digest"
@@ -94,15 +93,11 @@ ActiveRecord::Schema.define(version: 20170515142616) do
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
     t.datetime "deleted_at"
-    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
-    t.index ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
-    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
-    t.index ["name"], name: "index_users_on_name", unique: true, using: :btree
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["deleted_at"], name: "index_users_on_deleted_at"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["name"], name: "index_users_on_name", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "followings", "users"
-  add_foreign_key "followings", "users", column: "owner_id"
-  add_foreign_key "profiles", "access_scopes", column: "birthday_access_scope_id"
-  add_foreign_key "third_party_access_tokens", "users"
 end

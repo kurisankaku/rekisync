@@ -1,6 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :user do
-    id { rand(100_000_000_000) }
+    id { rand(100_000) }
     name { Faker::Lorem.characters(10) }
     email { Faker::Internet.email }
     password { "1a" + Faker::Internet.password(6) }

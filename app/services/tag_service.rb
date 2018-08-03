@@ -5,9 +5,10 @@ class TagService
   # @param [String] name the tag name.
   # @return [Tag] tag.
   def create(name)
-    Tag.create do |tag|
-      tag.name = name.strip
-    end
+    tag = Tag.new
+    tag.name = name.strip
+    tag.save!
+    tag
   end
 
   # Find the tag by the name.

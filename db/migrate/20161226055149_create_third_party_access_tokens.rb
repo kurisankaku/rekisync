@@ -1,6 +1,6 @@
 class CreateThirdPartyAccessTokens < ActiveRecord::Migration[5.0]
   def change
-    create_table :third_party_access_tokens, id: :bigint do |t|
+    create_table :third_party_access_tokens do |t|
       t.integer :user_id, limit: 8, null: false
       t.string :uid, null: false
       t.string :provider, limit: 32, null: false

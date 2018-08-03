@@ -1,9 +1,10 @@
 class CreateProfiles < ActiveRecord::Migration[5.0]
   def change
-    create_table :profiles, id: :bigint do |t|
+    create_table :profiles do |t|
       t.integer :user_id, null: false, limit: 8
       t.string :name, null: false, limit: 128
       t.text :about_me
+      t.integer :birthday_access_scope_id, null: false
       t.string :img_dir_prefix, null: false, limit: 8
       t.string :avator_image
       t.string :background_image
@@ -21,6 +22,7 @@ class CreateProfiles < ActiveRecord::Migration[5.0]
     end
 
     add_index :profiles, :user_id, unique: true
+    add_index :profiles, :birthday_access_scope_id
     add_index :profiles, :deleted_at
   end
 end
