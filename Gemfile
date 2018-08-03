@@ -63,7 +63,7 @@ gem 'kaminari'
 gem 'draper', '3.0.0.pre1'
 
 # FIXME When release version includes npm module, fetch from release, not master.
-gem 'sprockets', git: 'git@github.com:rails/sprockets.git', branch: 'master'
+gem 'sprockets', git: 'https://github.com/rails/sprockets.git', branch: 'master'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

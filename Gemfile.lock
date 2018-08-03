@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:rails/sprockets.git
+  remote: https://github.com/rails/sprockets.git
   revision: 0cb3314368f9f9e84343ebedcc09c7137e920bc4
   branch: master
   specs:
